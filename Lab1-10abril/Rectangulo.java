@@ -1,4 +1,4 @@
-public class Rectangulo{
+public class Rectangulo {
 
     private double largo, ancho;
 

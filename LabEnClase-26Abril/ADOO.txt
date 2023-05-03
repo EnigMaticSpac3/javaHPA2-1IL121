@@ -1,0 +1,11 @@
+// Elabore una funcion en java que calcule F(x,y) = raiz(x) / y^2 - 1
+
+funcion
+
+- x
+- y
+
++ asignar()
++ calcular()
++ getX()
++ getY()
