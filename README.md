@@ -4,4 +4,4 @@ Integrantes:
 - Jefferson Chacón
 - Amy Him
 - Jorge González
-- Luis Torres
+- Diego Ramos
