@@ -1,4 +1,3 @@
-import java.io.*;
 public class Main {
     // Elabore una funcion en java que calcule F(x,y) = raiz(x) / y^2 - 1
 

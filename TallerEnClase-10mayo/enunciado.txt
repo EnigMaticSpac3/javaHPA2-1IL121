@@ -1,0 +1,28 @@
+Elabore una aplicación que realice el incremento de los salarios de los empleados de una compañía. Cada empleado se le debe hacer un aumento del 20% de su salario mensual.
+Se requiere imprimir:
+- el salario actual
+- el nuevo salario 
+De cada empleado
+
+La compañía quiere tambier conocer el monto total de la planilla luego de hacer el incremento de los salarios. Y determinar también el salario mayor que tendrá la empresa ahora.
+
+Tarea - mismo programa pero con el nombre de la persona
+ADOO
+Salario
+- salario
++ asignar()
++ getSalario()
++ calcularAumento()
++ calcularMayorSalario()
++ calcularTotal()
+
+ADOO programa 2
+Empleado
+- salario
+- nombre
++ asignar()
++ getSalario()
++ getNombre()
++ calcularAumento()
++ calcularMayorSalario()
++ calcularTotal()

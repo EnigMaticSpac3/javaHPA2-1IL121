@@ -1,4 +1,3 @@
-package Programa1;
 // APLICACIÓN DE CONSTRUCTORES 
 public class Operaciones {
 
