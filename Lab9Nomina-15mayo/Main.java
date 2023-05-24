@@ -1,3 +1,10 @@
+/*
+ * Integrantes:
+   Jefferson Chacon   | 20-70-7314
+   Jorge Gonzalez     | 8-1002-2167
+   Amy Him            | 3-753-2253 
+   Diego Ramos        | 8-1002-1456 
+ */
 import java.io.*;
 /* ESTE PROGRAMA TRABAJA CON 2 CLASES
 *  UNO para la Nomina, 
@@ -29,6 +36,12 @@ public class Main {
                 try {
                     System.out.print("Ingrese el salario: $");
                     salario = Double.parseDouble(leer.readLine());
+
+                    // El salario no puede ser negativo
+                    if (salario < 0) {
+                        System.out.println("El salario no puede ser negativo. Ingrese nuevamente.");
+                        bien = false;
+                    }
                 }
                 catch (NumberFormatException e) {
                     System.out.println("Error en el numero.\nIngrese nuevamente.");
