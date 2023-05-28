@@ -67,11 +67,19 @@ public class Main {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "El numero ingresado no es valido. Ingrese nuevamente.", "Numero no valido", JOptionPane.ERROR_MESSAGE);
                     leido = false;
+                } catch (NullPointerException er) { // este error no se puso en el programa
+                    int op = JOptionPane.showConfirmDialog(null, "Desea cancelar el pedido?", "Cancelar Pedido", JOptionPane.YES_NO_OPTION);
+                    if (op == JOptionPane.YES_OPTION) {
+                        break;
+                    } else {
+                        leido = false;
+                    }
                 }
             } while (!leido);
 
+            // asignar
             cafe.asignar(tipoCafe, cantidadBolsas);
-
+            // calculo de cajas usadas
             CalculoCajas cajas = cafe.calcularCajas();
 
             if (cafe.getTipo().equalsIgnoreCase("A")) {
@@ -90,14 +98,13 @@ public class Main {
                     + "\n"
                     + "\t\t\n\nBolsas Usadas:\n"
                     + "\n"
-                    + "   - Cajas grandes: " + cajasGrandes + "\t Costo: $" + cajasGrandes * 2.0 + "\n"
+                    + "   - Cajas grandes: "  + cajasGrandes  + "\t Costo: $" + cajasGrandes  * 2.0 + "\n"
                     + "   - Cajas medianas: " + cajasMedianas + "\t Costo: $" + cajasMedianas * 1.0 + "\n"
                     + "   - Cajas pequenas: " + cajasPequenas + "\t Costo: $" + cajasPequenas * 0.5 + "\n"
                     + "\n"
                     + "Costo total por pagar: $" + (cajas.calcularCostoTotal() + cafe.calcularPedido(precioCafe));
 
-            JOptionPane.showMessageDialog(null, salida, "La Casa Del Cafe", JOptionPane.INFORMATION_MESSAGE,
-                    imagenCafe);
+            JOptionPane.showMessageDialog(null, salida, "La Casa Del Cafe", JOptionPane.INFORMATION_MESSAGE, imagenCafe);
 
             opcion = JOptionPane.showOptionDialog(null, "¿Desea realizar otro pedido?", "Casa del Cafe",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, confirmIcon, null, null);
