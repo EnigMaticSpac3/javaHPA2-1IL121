@@ -1,0 +1,17 @@
+1. 
+Realice un programa para quitar los elementos repetidos de un arreglo de enteros. Hagalo sobre el mismo arreglo *sin usar arreglos auxiliares*. Por ejemplo: 
+Despues de ejecutar el programa  Arr[] = {2, -3, 2, 8, 8, 2}   Arr[] = {2, -3, 8}
+
+2.
+Cargue la produccion total de los 7 dias de la semana de 20 plantas electricas, en un arreglo llamado planta[]. Elabore un programa que realice los siguientes procesos:
+ -Imprima la produccion de todas las plantas.
+ - Imprima el # de la planta que tuvo la mayor produccion en la semana.
+ - calcule el promedio de la produccion de las 20 plantas electricas.
+
+3. (me toca)
+Realice un programa que cargue un arreglo de 5 caracteres llamado letras[]. Determine cuantas vocales hay en el arreglo. Imprima al arreglo y el total de vocales. 
+
+4. 
+Escriba un programa donde se capturan palabras y por cada palabra Imprima la palabra capturada y la palabra encriptada.
+Para encriptar la palabra use el metodo de desplazamiento circular de 3 posiciones. Esto es, cada letra de la palabra original debe sustituirse por la letra que está 3 posiciones adelante.
+Ejemplo:  Ingresa "casa"    Encriptada "fdvd"

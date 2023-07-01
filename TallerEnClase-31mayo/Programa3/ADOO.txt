@@ -1,0 +1,3 @@
+3. Se tienen almacenados en memoria 2 vectores. num[] y noma[]. De 10 elementos cada uno de tipo caracter.
+Haga un programa que escriba la palabra 'iguales' si ambos lo son. Y 'diferentes' si no lo son. Serán iguales cuando en la misma posición de ambos vectores se tenga el mismo valor para todos los elementos.
+

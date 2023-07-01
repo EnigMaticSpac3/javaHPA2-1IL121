@@ -1,0 +1,4 @@
+4. Escriba una aplicación en JAVA que compute los votos obtenidos por cada candidato que participó en una contienda electoral. Se lee el voto dado por cada persona al candidato de su preferencia. Se cuenta con 5 candidatos los votantes deben introducir su voto el cual debe oscilar entre 1 y 5. Se desea lo siguiente:
+- 1. Imprima los votos obtenidos por cada candidato.
+- 2. Ordéneslo de mayor a menor.
+- 3. Imprima al ganador, tanto su nombre como la cantidad de votos obtenidos.

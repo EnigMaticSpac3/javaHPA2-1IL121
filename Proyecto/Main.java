@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        // Objeto de la clase
+        // Objetos de las clases
         MundoM     mates    = new MundoM();
         Adivinanza adi      = new Adivinanza();
         Ecuacion   ecuacion = new Ecuacion();
@@ -24,11 +24,11 @@ public class Main {
         
         // Imagenes
         ImageIcon img_bien1 = new ImageIcon("./imgs/bien1.png");
-        ImageIcon img_bien2 = new ImageIcon("./imgs/bien2.jpg");
-        ImageIcon img_bien3 = new ImageIcon("./imgs/bien3.jpg");
-        ImageIcon img_mot1 = new ImageIcon("./imgs/motivador1.png");
-        ImageIcon img_mot2 = new ImageIcon("./imgs/motivador2.jpg");
-        ImageIcon img_mot3 = new ImageIcon("./imgs/motivador3.jpg");
+        ImageIcon img_bien2 = new ImageIcon("imgs/bien2.jpg");
+        ImageIcon img_bien3 = new ImageIcon("imgs/bien3.jpg");
+        ImageIcon img_mot1 = new ImageIcon("imgs/motivador1.png");
+        ImageIcon img_mot2 = new ImageIcon("imgs/motivador2.jpg");
+        ImageIcon img_mot3 = new ImageIcon("imgs/motivador3.jpg");
         ImageIcon imgs[] = {img_bien1, img_bien2, img_bien3, img_mot1, img_mot2, img_mot3};
 
         // Variables
@@ -242,6 +242,12 @@ public class Main {
                     }
                     break;
 
+                    /* uni: [x y x y]
+                    * bid
+                     * [x y]
+                     * [x y]
+                     */
+
                 // Opcion 2
                 case 2:
                     // tiempo de inicio
@@ -270,8 +276,8 @@ public class Main {
                             // si hay division, que el resultado sea entero
                             if (op == '/') {
                                 while (num1 % num2 != 0) {
-                                    num1 = mates.generarNum(2, 9);
-                                    num2 = mates.generarNum(2, 9);
+                                    num1 = mates.generarNum(0, 99);
+                                    num2 = mates.generarNum(0, 99);
                                 }
                             }
                             // generar el resultado

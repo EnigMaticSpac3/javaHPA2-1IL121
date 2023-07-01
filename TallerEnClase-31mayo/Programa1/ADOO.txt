@@ -1,0 +1,18 @@
+1. calcule el promedio de 50 valores almacenados en un vector. 
+Determine cuántos son mayores que el promedio. 
+- Imprima el promedio.
+- El número de datos mayores que el promedio.
+- Y una lista de valores mayores que el promedio.
+
+ADOO
+
+Promedio
+
+- val[]
+
++ Promedio()
++ asignar()
++ getVal()
++ calcularP()
++ calcularM()
++ listarC() (opcional)

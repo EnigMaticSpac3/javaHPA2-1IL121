@@ -1,0 +1,16 @@
+1. calcule el promedio de 50 valores almacenados en un vector. 
+Determine cuántos son mayores que el promedio. 
+- Imprima el promedio.
+- El número de datos mayores que el promedio.
+- Y una lista de valores mayores que el promedio.
+
+2. Cargue 15 numeros en un vector llamado nume[]. Eleve al cuadrado cada valor almacenado en el vector. Almacene el resultado en otro vector llamado eleva[].
+- Imprima ambos vectores.
+
+3. Se tienen almacenados en memoria 2 vectores. num[] y noma[]. De 10 elementos cada uno de tipo caracter.
+Haga un programa que escriba la palabra 'iguales' si ambos lo son. Y 'diferentes' si no lo son. Serán iguales cuando en la misma posición de ambos vectores se tenga el mismo valor para todos los elementos.
+
+4. Escriba una aplicación en JAVA que compute los votos obtenidos por cada candidato que participó en una contienda electoral. Se lee el voto dado por cada persona al candidato de su preferencia. Se cuenta con 5 candidatos los votantes deben introducir su voto el cual debe oscilar entre 1 y 5. Se desea lo siguiente:
+- 1. Imprima los votos obtenidos por cada candidato.
+- 2. Ordéneslo de mayor a menor.
+- 3. Imprima al ganador, tanto su nombre como la cantidad de votos obtenidos.

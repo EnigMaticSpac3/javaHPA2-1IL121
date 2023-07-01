@@ -1,0 +1,12 @@
+2. Cargue 15 numeros en un vector llamado nume[]. Eleve al cuadrado cada valor almacenado en el vector. Almacene el resultado en otro vector llamado eleva[].
+- Imprima ambos vectores.
+
+ADOO
+VectorCuadrado
+- num
+
++ asignar()
++ elevarCuadrado()
++ cargar()
++ getNum()
+
