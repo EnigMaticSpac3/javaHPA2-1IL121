@@ -3,12 +3,12 @@
 public class Animal {
     private int edad;
     private double peso;
-    private String nombre;
+    private String nombreRaza;
 
     public void asignar(int edad, double peso, String nombre) {
         this.edad = edad;
         this.peso = peso;
-        this.nombre = nombre;
+        this.nombreRaza = nombre;
     }
 
     public int getEdad() {
@@ -17,8 +17,8 @@ public class Animal {
     public double getPeso() {
         return peso;
     }
-    public String getNombre() {
-        return nombre;
+    public String getNombreRaza() {
+        return nombreRaza;
     }
 
 
