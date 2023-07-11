@@ -1,14 +1,14 @@
 // CLASE HIJO DE 'ANIMAL'
 
 public class Vaca extends Animal {
-    private int cantidadVacas;
+    private int lecheProducida;
 
-    public void asignar(int edad, double peso, String nombreRaza, int cantidadVacas) {
+    public void asignar(int edad, double peso, String nombreRaza, int lecheProducida) {
         super.asignar(edad, peso, nombreRaza);
-        this.cantidadVacas = cantidadVacas;
+        this.lecheProducida = lecheProducida;
     }
 
-    public int getCantidadVacas() {
-        return cantidadVacas;
+    public int getLecheProducida () {
+        return lecheProducida;
     }
 }
