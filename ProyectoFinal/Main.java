@@ -7,7 +7,7 @@ public class Main {
         Vaca        vaca        = new Vaca();
 
         // Objetos de JAVA
-        JPanel panel = new JPanel(new BorderLayout(5,5));
+        JPanel panelG, panelV;
         JPanel labels, controls;
         JTextField raza, pesoTxt;
         
@@ -17,11 +17,11 @@ public class Main {
 
         // Variables
         int opcion;
-        double peso;
+        double peso = 0.0;
         String[] razasGallina       = {"Isa Brown", "Lohman", "Castellana Negra"};
         String[] identificadores    = {"ISBWN", "LHMN", "CTLANGR"};
         String[] opcionesInicio     = {"Acceder a Inventario", "Ventas", "Informes", "Salir"};
-        String[] opcionesInventario = {"Registrar Gallina", "Registrar Vaca", "Registrar Prod.Huevos", "Registrar Prod.Leche"};
+        String[] opcionesInventario = {"Registrar Gallina", "Registrar Vaca", "Registrar Prod.Huevos", "Registrar Prod.Leche", "Regresar"};
         boolean bien, cancelado;
 
         // Inicio
@@ -32,12 +32,13 @@ public class Main {
                     do {
                         opcion = JOptionPane.showOptionDialog(null, null, "Inventario de la Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesInventario, null);
                         switch (opcion) {
-                            case 0:
+                            case 0: // registrar GALLINA
+                                panelG = new JPanel(new BorderLayout(5,5));
                                 labels = new JPanel(new GridLayout(0,1,2,2));
                                 labels.add(new JLabel("Raza", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Identificador", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Peso", SwingConstants.TRAILING));
-                                panel.add(labels, BorderLayout.LINE_START);
+                                panelG.add(labels, BorderLayout.LINE_START);
                         
                                 controls = new JPanel(new GridLayout(0,1,2,2));
                                 JComboBox<String>  razaG = new JComboBox<>(razasGallina);
@@ -50,12 +51,12 @@ public class Main {
                                 identificador.setEditable(false);
                                 pesoTxt = new JTextField();
                                 controls.add(pesoTxt);
-                                panel.add(controls, BorderLayout.CENTER);
+                                panelG.add(controls, BorderLayout.CENTER);
                         
                                 do {
                                     bien = true;
                                     cancelado = false;
-                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Gallina", JOptionPane.OK_CANCEL_OPTION);
+                                    opcion = JOptionPane.showConfirmDialog(null, panelG, "Registrando Gallina", JOptionPane.OK_CANCEL_OPTION);
                                     System.out.println("Raza: " + identificador.getText());
                                     System.out.println("Peso: " + new String(pesoTxt.getText()));
                                     
@@ -76,6 +77,8 @@ public class Main {
                                     if (!cancelado) {
                                         try {
                                             peso = Double.parseDouble(pesoTxt.getText());
+
+                                            // # trabajo con el objeto
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null, "El peso debe ser un numero", "Error", JOptionPane.ERROR_MESSAGE);
                                             bien = false;
@@ -84,11 +87,13 @@ public class Main {
                                 } while (!bien);
                                 break;
 
-                            case 1:
+                            case 1: // Registrar VACA
+                                panelV = new JPanel(new BorderLayout(5,5));
                                 labels = new JPanel(new GridLayout(0,1,2,2));
                                 labels.add(new JLabel("Raza", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Peso", SwingConstants.TRAILING));
-                                panel.add(labels, BorderLayout.LINE_START);
+                                panelV.add(labels, BorderLayout.LINE_START);
+                                
                         
                                 controls = new JPanel(new GridLayout(0,1,2,2));
                                 raza = new JTextField("Brahman");
@@ -96,12 +101,12 @@ public class Main {
                                 raza.setEditable(false);
                                 pesoTxt = new JTextField();
                                 controls.add(pesoTxt);
-                                panel.add(controls, BorderLayout.CENTER);
+                                panelV.add(controls, BorderLayout.CENTER);
                         
                                 do {
                                     bien = true;
                                     cancelado = false;
-                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Vaca", JOptionPane.OK_CANCEL_OPTION);
+                                    opcion = JOptionPane.showConfirmDialog(null, panelV, "Registrando Vaca", JOptionPane.OK_CANCEL_OPTION);
                                     System.out.println("Raza: " + raza.getText());
                                     System.out.println("Peso: " + new String(pesoTxt.getText()));
                                     
@@ -122,6 +127,8 @@ public class Main {
                                     if (!cancelado) {
                                         try {
                                             peso = Double.parseDouble(pesoTxt.getText());
+                                            // # trabajo con el objeto
+
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null, "El peso debe ser un numero", "Error", JOptionPane.ERROR_MESSAGE);
                                             bien = false;
@@ -132,14 +139,19 @@ public class Main {
 
                         
                                 break;
-                            case 2:
+                            case 2: // Registro de produccion de huevos
                                 // inventario.registrarHuevos();
                                 break;
-                            case 3:
+                            case 3: // Registro de produccion de leche
                                 // inventario.registrarLeche();
                                 break;
+                            case 4: // Regresar
+                                opcion = JOptionPane.CLOSED_OPTION;
+                                break;
+                            
                         }
                     } while (opcion != JOptionPane.CLOSED_OPTION);
+                    opcion = 0;
                     break;
                 case 1:
                     // Ventas ventas = new Ventas();
@@ -150,6 +162,7 @@ public class Main {
                     
                     break;
                 case 3:
+                    System.exit(0);
                     break;
             }
         } while (opcion != JOptionPane.CLOSED_OPTION);
