@@ -7,10 +7,13 @@ public class Main {
         Vaca        vaca        = new Vaca();
 
         // Objetos de JAVA
-        JPanel panelG, panelV;
+        JPanel panel;
         JPanel labels, controls;
         JTextField raza, edadTxt, pesoTxt;
-        
+        panel       = new JPanel(new BorderLayout(5,5));
+        labels      = new JPanel(new GridLayout(0,1,2,2));
+        controls    = new JPanel(new GridLayout(0,1,2,2));
+
         // imagenes
         ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
 
@@ -33,35 +36,37 @@ public class Main {
                         opcion = JOptionPane.showOptionDialog(null, null, "Inventario de la Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesInventario, null);
                         switch (opcion) {
                             case 0: // registrar GALLINA
-                                panelG = new JPanel(new BorderLayout(5,5));
-                                labels = new JPanel(new GridLayout(0,1,2,2));
+                                panel.removeAll();
+                                labels.removeAll();
+                                controls.removeAll();
                                 labels.add(new JLabel("Raza", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Identificador", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Edad", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Peso (kg)", SwingConstants.TRAILING));
-                                panelG.add(labels, BorderLayout.LINE_START);
+                                panel.add(labels, BorderLayout.LINE_START);
                         
-                                controls = new JPanel(new GridLayout(0,1,2,2));
                                 JComboBox<String>  razaG = new JComboBox<>(razasGallina);
                                 controls.add(razaG);
                                 JTextField identificador = new JTextField(identificadores[razaG.getSelectedIndex()]);
+                                
                                 razaG.addActionListener(e -> {
                                     identificador.setText(identificadores[razaG.getSelectedIndex()]);
                                 });
+
                                 controls.add(identificador);
                                 identificador.setEditable(false);
                                 edadTxt = new JTextField();
                                 controls.add(edadTxt);
                                 pesoTxt = new JTextField();
                                 controls.add(pesoTxt);
-                                panelG.add(controls, BorderLayout.CENTER);
+                                panel.add(controls, BorderLayout.CENTER);
                         
                                 do {
                                     edadTxt.setText("");
                                     pesoTxt.setText("");
                                     bien = true;
                                     cancelado = false;
-                                    opcion = JOptionPane.showConfirmDialog(null, panelG, "Registrando Gallina", JOptionPane.OK_CANCEL_OPTION);
+                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Gallina", JOptionPane.OK_CANCEL_OPTION);
                                     System.out.println("Raza: " + identificador.getText());
                                     System.out.println("Edad: " + edadTxt.getText());
                                     System.out.println("Peso (kg): " + new String(pesoTxt.getText()));
@@ -114,15 +119,14 @@ public class Main {
                                 break;
 
                             case 1: // Registrar VACA
-                                panelV = new JPanel(new BorderLayout(5,5));
-                                labels = new JPanel(new GridLayout(0,1,2,2));
+                                panel.removeAll();
+                                labels.removeAll();
+                                controls.removeAll();
                                 labels.add(new JLabel("Raza", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Edad", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Peso (kg)", SwingConstants.TRAILING));
-                                panelV.add(labels, BorderLayout.LINE_START);
+                                panel.add(labels, BorderLayout.LINE_START);
                                 
-                        
-                                controls = new JPanel(new GridLayout(0,1,2,2));
                                 raza = new JTextField("Brahman");
                                 controls.add(raza);
                                 raza.setEditable(false);
@@ -130,14 +134,14 @@ public class Main {
                                 controls.add(edadTxt);
                                 pesoTxt = new JTextField();
                                 controls.add(pesoTxt);
-                                panelV.add(controls, BorderLayout.CENTER);
+                                panel.add(controls, BorderLayout.CENTER);
                                 
                                 do {
                                     edadTxt.setText("");
                                     pesoTxt.setText("");
                                     bien = true;
                                     cancelado = false;
-                                    opcion = JOptionPane.showConfirmDialog(null, panelV, "Registrando Vaca", JOptionPane.OK_CANCEL_OPTION);
+                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Vaca", JOptionPane.OK_CANCEL_OPTION);
                                     System.out.println("Raza: " + raza.getText());
                                     System.out.println("Edad: " + edadTxt.getText());
                                     System.out.println("Peso: " + new String(pesoTxt.getText()));
