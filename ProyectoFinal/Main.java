@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         // Objetos
@@ -9,7 +10,7 @@ public class Main {
         // Objetos de JAVA
         JPanel panel;
         JPanel labels, controls;
-        JTextField raza, edadTxt, pesoTxt;
+        JTextField raza, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt;
         panel       = new JPanel(new BorderLayout(5,5));
         labels      = new JPanel(new GridLayout(0,1,2,2));
         controls    = new JPanel(new GridLayout(0,1,2,2));
@@ -19,7 +20,7 @@ public class Main {
 
 
         // Variables
-        int opcion, edad = 0;
+        int opcion, edad = 0, huevosProd = 0, lechesProd = 0;
         double peso = 0.0;
         String[] razasGallina       = {"Isa Brown", "Lohman", "Castellana Negra"};
         String[] identificadores    = {"ISBWN", "LHMN", "CTLANGR"};
@@ -48,7 +49,7 @@ public class Main {
                                 JComboBox<String>  razaG = new JComboBox<>(razasGallina);
                                 controls.add(razaG);
                                 JTextField identificador = new JTextField(identificadores[razaG.getSelectedIndex()]);
-                                
+
                                 razaG.addActionListener(e -> {
                                     identificador.setText(identificadores[razaG.getSelectedIndex()]);
                                 });
@@ -197,9 +198,133 @@ public class Main {
                         
                                 break;
                             case 2: // Registro de produccion de huevos
+                                panel.removeAll();
+                                labels.removeAll();
+                                controls.removeAll();
+                                labels.add(new JLabel("Fecha", SwingConstants.TRAILING));
+                                labels.add(new JLabel("Raza", SwingConstants.TRAILING));
+                                labels.add(new JLabel("Identificador", SwingConstants.TRAILING));
+                                labels.add(new JLabel("# Huevos Producidos", SwingConstants.TRAILING));
+                                panel.add(labels, BorderLayout.LINE_START);
+                                
+                                // fecha para registro (FEATURE)
+                                JTextField fecha = new JFormattedTextField(new Date());
+                                fecha.setEditable(false);
+                                controls.add(fecha);
+                                JComboBox<String>  razaGP = new JComboBox<>(razasGallina);
+                                controls.add(razaGP);
+                                JTextField identificadorP = new JTextField(identificadores[razaGP.getSelectedIndex()]);
+
+                                razaGP.addActionListener(e -> {
+                                    identificadorP.setText(identificadores[razaGP.getSelectedIndex()]);
+                                });
+
+                                controls.add(identificadorP);
+                                identificadorP.setEditable(false);
+                                huevosProdTxt = new JTextField();
+                                controls.add(huevosProdTxt);
+                                panel.add(controls, BorderLayout.CENTER);
+
+                                do {
+                                    huevosProdTxt.setText("");
+                                    bien = true;
+                                    cancelado = false;
+                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Huevos Producidos", JOptionPane.OK_CANCEL_OPTION);
+                                    System.out.println("Raza: " + identificadorP.getText());
+                                    System.out.println("# Huevos: " + huevosProdTxt.getText());
+                                    
+                                    // si cancela
+                                    if (opcion == JOptionPane.CANCEL_OPTION) {
+                                        opcion = JOptionPane.showConfirmDialog(null, "¿Cancelar Registro de Produccion?", "Cancelando Registro de Produccion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+                                        if (opcion == JOptionPane.YES_OPTION) {
+                                            bien = true;
+                                            break;
+                                        } else {
+                                            bien = false;
+                                            cancelado = true;
+                                        }
+                                    }
+
+                                    if (!cancelado) {
+                                        // validar el numero de huevos de la Gallina
+                                        try {
+                                            huevosProd = Integer.parseInt(huevosProdTxt.getText());
+                                            // Cumple con los requisitos
+                                            if (huevosProd < 0) {
+                                                JOptionPane.showMessageDialog(null, "El numero de huevos no puede ser negativo", "# Huevos no admitido - Registro Produccion", JOptionPane.ERROR_MESSAGE);
+                                                bien = false;
+                                            }
+                                            
+                                            // # trabajo con el objeto
+                                        } catch (NumberFormatException e) {
+                                            JOptionPane.showMessageDialog(null, "El # Huevos debe ser un numero", "# Huevos no admitido - Registro Produccion", JOptionPane.ERROR_MESSAGE);
+                                            bien = false;
+                                        }
+                                    }
+                                } while (!bien);
                                 // inventario.registrarHuevos();
                                 break;
                             case 3: // Registro de produccion de leche
+                                panel.removeAll();
+                                labels.removeAll();
+                                controls.removeAll();
+                                labels.add(new JLabel("Fecha", SwingConstants.TRAILING));
+                                labels.add(new JLabel("Raza", SwingConstants.TRAILING));
+                                labels.add(new JLabel("# Leches Producidas", SwingConstants.TRAILING));
+                                panel.add(labels, BorderLayout.LINE_START);
+                                
+                                // fecha para registro (FEATURE)
+                                JTextField fechaL = new JFormattedTextField(new Date());
+                                fechaL.setEditable(false);
+                                controls.add(fechaL);
+                                raza = new JTextField("Brahman");
+                                controls.add(raza);
+                                raza.setEditable(false);
+                                lechesProdTxt = new JTextField();
+                                controls.add(lechesProdTxt);
+                                
+                                panel.add(controls, BorderLayout.CENTER);
+                                
+                                do {
+                                    lechesProdTxt.setText("");
+                                    bien = true;
+                                    cancelado = false;
+                                    opcion = JOptionPane.showConfirmDialog(null, panel, "Registrando Leches Producidas", JOptionPane.OK_CANCEL_OPTION);
+                                    System.out.println("Raza: " + raza.getText());
+                                    System.out.println("Edad: " + lechesProdTxt.getText());
+                                    
+                                    // si cancela
+                                    if (opcion == JOptionPane.CANCEL_OPTION) {
+                                        opcion = JOptionPane.showConfirmDialog(null, "¿Cancelar Registro de Produccion de Leches?", "Cancelando Registro de Produccion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+                                        if (opcion == JOptionPane.YES_OPTION) {
+                                            bien = true;
+                                            break;
+                                        } else {
+                                            bien = false;
+                                            cancelado = true;
+                                        }
+                                    }
+
+                                    if (!cancelado) {
+                                        // validar el # leches producidas de la vaca
+                                        try {
+                                            lechesProd = Integer.parseInt(lechesProdTxt.getText());
+                                            // Cumple con los requisitos
+                                            if (lechesProd < 0) {
+                                                JOptionPane.showMessageDialog(null, "El # de leches producidas no puede ser negativo", "Numero no admitido - Registro Produccion", JOptionPane.ERROR_MESSAGE);
+                                                bien = false;
+                                            }
+                                            
+                                            // # trabajo con el objeto
+
+                                        } catch (NumberFormatException e) {
+                                            JOptionPane.showMessageDialog(null, "El # de leches producidas debe ser un numero", "Error ingresando un numero", JOptionPane.ERROR_MESSAGE);
+                                            bien = false;
+                                        }
+                                    }
+                                } while (!bien);
                                 // inventario.registrarLeche();
                                 break;
                             case 4: // Regresar
