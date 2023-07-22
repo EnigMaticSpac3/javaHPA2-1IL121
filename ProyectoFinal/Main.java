@@ -5,37 +5,112 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         // Objetos
-        Inventario inventario = new Inventario();
+        Inventario inventario = new Inventario(0, 0);
         Vaca vaca = new Vaca();
 
         // Objetos de JAVA
-        JPanel panel;
-        JPanel labels, controls;
-        JTextField raza, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt;
-        panel = new JPanel(new BorderLayout(5, 5));
-        labels = new JPanel(new GridLayout(0, 1, 2, 2));
-        controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        JPanel panel, inicioPanel;
+        JPanel labels, controls, mensaje, inicioLabels, inicioControls;
+        JTextField raza, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
+        panel           = new JPanel(new BorderLayout(5, 5));
+        inicioPanel     = new JPanel(new BorderLayout(5, 5));
+        labels          = new JPanel(new GridLayout(0, 1, 2, 2));
+        controls        = new JPanel(new GridLayout(0, 1, 2, 2));
+        mensaje         = new JPanel(new GridLayout(0, 1, 0, 5));
+        inicioLabels    = new JPanel(new GridLayout(4, 1, 10, 10));
+        inicioControls  = new JPanel(new GridLayout(4, 1, 10, 10));
 
         // imagenes
         ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
 
         // Variables
-        int opcion, edad = 0, huevosProd = 0, lechesProd = 0;
+        int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0;
         double peso = 0.0;
         String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
         String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
+        String[] opcionesIngreso = {"Ingresar", "Salir"};
         String[] opcionesInicio = { "Acceder a Inventario", "Ventas", "Informes", "Salir" };
         String[] opcionesInventario = { "Registrar Gallina", "Registrar Vaca", "Registrar Prod.Huevos",
                 "Registrar Prod.Leche", "Regresar" };
-        boolean bien, cancelado;
+        boolean bien, cancelado, iniciado;
 
         // Inicio
+        iniciado = false;
         do {
+            do {
+                iniciado = true;
+                panel.removeAll();
+                inicioPanel.removeAll();
+                mensaje.removeAll();
+                inicioLabels.removeAll();
+                inicioControls.removeAll();
+                
+                mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
+                mensaje.add(new JLabel("Ingrese la capacidad de su granja:", SwingConstants.CENTER));
+                mensaje.add(new JLabel("", SwingConstants.CENTER));
+                mensaje.add(new JLabel(""));
+                panel.add(mensaje, BorderLayout.NORTH);
+                
+                inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
+                inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
+                inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
+                
+                cantGallinasTxt = new JTextField();
+                inicioControls.add(cantGallinasTxt);
+                cantVacasTxt = new JTextField();
+                inicioControls.add(cantVacasTxt);
+                inicioPanel.add(inicioControls, BorderLayout.CENTER);
+
+                
+                panel.add(inicioPanel, BorderLayout.CENTER);
+                
+                opcion = JOptionPane.showOptionDialog(null,
+                        panel,
+                        "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        inicio,
+                        opcionesIngreso, null);
+                
+                if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
+                    System.exit(0);
+                }
+                // validamos los datos ingresados
+                try {
+                    cantGallinas = Integer.parseInt(cantGallinasTxt.getText());
+                    cantVacas = Integer.parseInt(cantVacasTxt.getText());
+                    // Cumple con los requisitos
+                    if (cantGallinas < 0 || cantVacas < 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "La cantidad de Gallinas y Vacas no puede ser negativa",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        iniciado = false;
+            
+                    } else {
+                        inventario = new Inventario(cantGallinas, cantVacas);
+                    }
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null,
+                            "La cantidad de Gallinas y Vacas debe ser un numero",
+                            "Error ingresando un numero",
+                            JOptionPane.ERROR_MESSAGE);
+                    iniciado = false;
+                }
+            } while (!iniciado);
+            
             opcion = JOptionPane.showOptionDialog(null,
-                    null,
+                    "________________________________"        
+                    + "\nCapacidad de la Granja\n" 
+                    + "Gallinas: " + cantGallinas + "\n"
+                    + "Vacas: " + cantVacas + "\n"
+                    + "_______________________________"
+                    + "\nEspacio Disponible\n"
+                    + "Gallinas: " + inventario.gallinas.length + "\n"
+                    + "Vacas: " + inventario.vaca.length + "\n",
                     "Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     inicio,
                     opcionesInicio, null);
+            
             switch (opcion) {
                 case 0:
                     do {
