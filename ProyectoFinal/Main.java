@@ -488,8 +488,6 @@ public class Main {
                                     opcion = JOptionPane.showConfirmDialog(null, panel,
                                             "Registrando Leches Producidas",
                                             JOptionPane.OK_CANCEL_OPTION);
-                                    System.out.println("Raza: " + razaV.getText());
-                                    System.out.println("Edad: " + lechesProdTxt.getText());
 
                                     // si cancela
                                     if (opcion == JOptionPane.CANCEL_OPTION) {
@@ -534,18 +532,18 @@ public class Main {
                                     // confirmar registro
                                     if (bien) {
                                         opcion = JOptionPane.showConfirmDialog(null,
-                                                "¿Registrar Vaca?\n"
+                                                "¿Registrar Producción?\n"
                                                         + "Usted ha ingresado lo siguiente:\n"
                                                         + "Raza: " + razaV.getText() + "\n"
                                                         + "# Leches Prod: " + lechesProd + "\n",
-                                                "Confirmar Registro de Vaca",
+                                                "Confirmar Producción de Leche",
                                                 JOptionPane.YES_NO_OPTION,
                                                 JOptionPane.QUESTION_MESSAGE, null);
                                         if (opcion == JOptionPane.NO_OPTION) {
                                             bien = false;
                                         } else {
                                             JOptionPane.showMessageDialog(null,
-                                                    " Vaca Registrada Exitosamente",
+                                                    " Producción Registrada Exitosamente",
                                                     "Registro Exitoso",
                                                     JOptionPane.INFORMATION_MESSAGE);
 
