@@ -45,31 +45,31 @@ public class Main {
                     mensaje.removeAll();
                     inicioLabels.removeAll();
                     inicioControls.removeAll();
-    
+
                     mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
                     mensaje.add(new JLabel("Ingrese la capacidad de su granja:", SwingConstants.CENTER));
                     mensaje.add(new JLabel("", SwingConstants.CENTER));
                     mensaje.add(new JLabel(""));
                     panel.add(mensaje, BorderLayout.NORTH);
-    
+
                     inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
                     inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
                     inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
-    
+
                     cantGallinasTxt = new JTextField();
                     inicioControls.add(cantGallinasTxt);
                     cantVacasTxt = new JTextField();
                     inicioControls.add(cantVacasTxt);
                     inicioPanel.add(inicioControls, BorderLayout.CENTER);
-    
+
                     panel.add(inicioPanel, BorderLayout.CENTER);
-    
+
                     opcion = JOptionPane.showOptionDialog(null,
                             panel,
                             "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
                             inicio,
                             opcionesIngreso, null);
-    
+
                     if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
                         System.exit(0);
                     }
@@ -84,11 +84,11 @@ public class Main {
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
                             iniciado = false;
-    
+
                         } else {
                             inventario = new Inventario(cantGallinas, cantVacas);
                         }
-    
+
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null,
                                 "La cantidad de Gallinas y Vacas debe ser un numero",
@@ -98,7 +98,7 @@ public class Main {
                     }
                 } while (!iniciado);
             }
-        
+
             // PANTALLA DE INICIO
             opcion = JOptionPane.showOptionDialog(null,
                     "________________________________"
@@ -207,7 +207,7 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-    
+
                                             // # trabajo con el objeto
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
@@ -217,7 +217,6 @@ public class Main {
                                             bien = false;
                                         }
                                     }
-
 
                                     if (bien) {
                                         // confirmar registro
@@ -394,8 +393,6 @@ public class Main {
                                     opcion = JOptionPane.showConfirmDialog(null, panel,
                                             "Registrando Huevos Producidos",
                                             JOptionPane.OK_CANCEL_OPTION);
-                                    System.out.println("Raza: " + identificadorP.getText());
-                                    System.out.println("# Huevos: " + huevosProdTxt.getText());
 
                                     // si cancela
                                     if (opcion == JOptionPane.CANCEL_OPTION) {
@@ -433,6 +430,31 @@ public class Main {
                                                     "# Huevos no admitido - Registro Produccion",
                                                     JOptionPane.ERROR_MESSAGE);
                                             bien = false;
+                                        }
+                                    }
+
+                                    if (bien) {
+                                        // confirmar registro
+                                        opcion = JOptionPane.showConfirmDialog(null,
+                                                "¿Registrar Producción de Huevos?\n"
+                                                        + "Usted ha ingresado lo siguiente:\n"
+                                                        + "Raza: " + razaGP.getSelectedItem() + " "
+                                                        + "(" + identificadorP.getText() + ")" + "\n"
+                                                        + "# Huevos Prod: " + huevosProd + "\n",
+                                                "Confirmar Producción de Huevos",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.QUESTION_MESSAGE, null);
+                                        if (opcion == JOptionPane.NO_OPTION) {
+                                            bien = false;
+                                        } else {
+                                            JOptionPane.showMessageDialog(null,
+                                                    "Producción Registrada Exitosamente",
+                                                    "Registro Exitoso",
+                                                    JOptionPane.INFORMATION_MESSAGE);
+
+                                            // # trabajo con el objeto
+                                            System.out.println("Raza: " + razaGP.getSelectedItem());
+                                            System.out.println("# Huevos: " + huevosProd);
                                         }
                                     }
                                 } while (!bien);
@@ -506,6 +528,30 @@ public class Main {
                                                     "Error ingresando un numero",
                                                     JOptionPane.ERROR_MESSAGE);
                                             bien = false;
+                                        }
+                                    }
+
+                                    // confirmar registro
+                                    if (bien) {
+                                        opcion = JOptionPane.showConfirmDialog(null,
+                                                "¿Registrar Vaca?\n"
+                                                        + "Usted ha ingresado lo siguiente:\n"
+                                                        + "Raza: " + razaV.getText() + "\n"
+                                                        + "# Leches Prod: " + lechesProd + "\n",
+                                                "Confirmar Registro de Vaca",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.QUESTION_MESSAGE, null);
+                                        if (opcion == JOptionPane.NO_OPTION) {
+                                            bien = false;
+                                        } else {
+                                            JOptionPane.showMessageDialog(null,
+                                                    " Vaca Registrada Exitosamente",
+                                                    "Registro Exitoso",
+                                                    JOptionPane.INFORMATION_MESSAGE);
+
+                                            // # trabajo con el objeto
+                                            System.out.println("Raza: " + razaV.getText());
+                                            System.out.println("# Leches Prod: " + lechesProd);
                                         }
                                     }
                                 } while (!bien);
