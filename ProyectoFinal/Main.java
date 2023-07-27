@@ -11,14 +11,14 @@ public class Main {
         // Objetos de JAVA
         JPanel panel, inicioPanel;
         JPanel labels, controls, mensaje, inicioLabels, inicioControls;
-        JTextField raza, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
-        panel           = new JPanel(new BorderLayout(5, 5));
-        inicioPanel     = new JPanel(new BorderLayout(5, 5));
-        labels          = new JPanel(new GridLayout(0, 1, 2, 2));
-        controls        = new JPanel(new GridLayout(0, 1, 2, 2));
-        mensaje         = new JPanel(new GridLayout(0, 1, 0, 5));
-        inicioLabels    = new JPanel(new GridLayout(4, 1, 10, 10));
-        inicioControls  = new JPanel(new GridLayout(4, 1, 10, 10));
+        JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
+        panel = new JPanel(new BorderLayout(5, 5));
+        inicioPanel = new JPanel(new BorderLayout(5, 5));
+        labels = new JPanel(new GridLayout(0, 1, 2, 2));
+        controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        mensaje = new JPanel(new GridLayout(0, 1, 0, 5));
+        inicioLabels = new JPanel(new GridLayout(4, 1, 10, 10));
+        inicioControls = new JPanel(new GridLayout(4, 1, 10, 10));
 
         // imagenes
         ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
@@ -28,89 +28,91 @@ public class Main {
         double peso = 0.0;
         String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
         String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
-        String[] opcionesIngreso = {"Ingresar", "Salir"};
+        String[] opcionesIngreso = { "Ingresar", "Salir" };
         String[] opcionesInicio = { "Acceder a Inventario", "Ventas", "Informes", "Salir" };
         String[] opcionesInventario = { "Registrar Gallina", "Registrar Vaca", "Registrar Prod.Huevos",
                 "Registrar Prod.Leche", "Regresar" };
         boolean bien, cancelado, iniciado;
 
         // Inicio
-        iniciado = false;
-        do {
-            do {
-                iniciado = true;
-                panel.removeAll();
-                inicioPanel.removeAll();
-                mensaje.removeAll();
-                inicioLabels.removeAll();
-                inicioControls.removeAll();
-                
-                mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
-                mensaje.add(new JLabel("Ingrese la capacidad de su granja:", SwingConstants.CENTER));
-                mensaje.add(new JLabel("", SwingConstants.CENTER));
-                mensaje.add(new JLabel(""));
-                panel.add(mensaje, BorderLayout.NORTH);
-                
-                inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
-                inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
-                inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
-                
-                cantGallinasTxt = new JTextField();
-                inicioControls.add(cantGallinasTxt);
-                cantVacasTxt = new JTextField();
-                inicioControls.add(cantVacasTxt);
-                inicioPanel.add(inicioControls, BorderLayout.CENTER);
-
-                
-                panel.add(inicioPanel, BorderLayout.CENTER);
-                
-                opcion = JOptionPane.showOptionDialog(null,
-                        panel,
-                        "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        inicio,
-                        opcionesIngreso, null);
-                
-                if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
-                    System.exit(0);
-                }
-                // validamos los datos ingresados
-                try {
-                    cantGallinas = Integer.parseInt(cantGallinasTxt.getText());
-                    cantVacas = Integer.parseInt(cantVacasTxt.getText());
-                    // Cumple con los requisitos
-                    if (cantGallinas < 0 || cantVacas < 0) {
+        iniciado = false; // con esto sabemos el estado del programa (iniciado o no)
+        do { // todo el programa
+            if (!iniciado) {
+                do {
+                    iniciado = true; // con esto sabemos que ya se inicio
+                    panel.removeAll();
+                    inicioPanel.removeAll();
+                    mensaje.removeAll();
+                    inicioLabels.removeAll();
+                    inicioControls.removeAll();
+    
+                    mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
+                    mensaje.add(new JLabel("Ingrese la capacidad de su granja:", SwingConstants.CENTER));
+                    mensaje.add(new JLabel("", SwingConstants.CENTER));
+                    mensaje.add(new JLabel(""));
+                    panel.add(mensaje, BorderLayout.NORTH);
+    
+                    inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
+                    inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
+                    inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
+    
+                    cantGallinasTxt = new JTextField();
+                    inicioControls.add(cantGallinasTxt);
+                    cantVacasTxt = new JTextField();
+                    inicioControls.add(cantVacasTxt);
+                    inicioPanel.add(inicioControls, BorderLayout.CENTER);
+    
+                    panel.add(inicioPanel, BorderLayout.CENTER);
+    
+                    opcion = JOptionPane.showOptionDialog(null,
+                            panel,
+                            "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            inicio,
+                            opcionesIngreso, null);
+    
+                    if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
+                        System.exit(0);
+                    }
+                    // validamos los datos ingresados
+                    try {
+                        cantGallinas = Integer.parseInt(cantGallinasTxt.getText());
+                        cantVacas = Integer.parseInt(cantVacasTxt.getText());
+                        // Cumple con los requisitos
+                        if (cantGallinas < 0 || cantVacas < 0) {
+                            JOptionPane.showMessageDialog(null,
+                                    "La cantidad de Gallinas y Vacas no puede ser negativa",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            iniciado = false;
+    
+                        } else {
+                            inventario = new Inventario(cantGallinas, cantVacas);
+                        }
+    
+                    } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null,
-                                "La cantidad de Gallinas y Vacas no puede ser negativa",
-                                "Error",
+                                "La cantidad de Gallinas y Vacas debe ser un numero",
+                                "Error ingresando un numero",
                                 JOptionPane.ERROR_MESSAGE);
                         iniciado = false;
-            
-                    } else {
-                        inventario = new Inventario(cantGallinas, cantVacas);
                     }
-
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null,
-                            "La cantidad de Gallinas y Vacas debe ser un numero",
-                            "Error ingresando un numero",
-                            JOptionPane.ERROR_MESSAGE);
-                    iniciado = false;
-                }
-            } while (!iniciado);
-            
+                } while (!iniciado);
+            }
+        
+            // PANTALLA DE INICIO
             opcion = JOptionPane.showOptionDialog(null,
-                    "________________________________"        
-                    + "\nCapacidad de la Granja\n" 
-                    + "Gallinas: " + cantGallinas + "\n"
-                    + "Vacas: " + cantVacas + "\n"
-                    + "_______________________________"
-                    + "\nEspacio Disponible\n"
-                    + "Gallinas: " + inventario.gallinas.length + "\n"
-                    + "Vacas: " + inventario.vaca.length + "\n",
+                    "________________________________"
+                            + "\nCapacidad de la Granja\n"
+                            + "Gallinas: " + cantGallinas + "\n"
+                            + "Vacas: " + cantVacas + "\n"
+                            + "_______________________________"
+                            + "\nEspacio Disponible\n"
+                            + "Gallinas: " + inventario.gallinas.length + "\n"
+                            + "Vacas: " + inventario.vaca.length + "\n",
                     "Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     inicio,
                     opcionesInicio, null);
-            
+
             switch (opcion) {
                 case 0:
                     do {
@@ -155,20 +157,16 @@ public class Main {
                                     opcion = JOptionPane.showConfirmDialog(null, panel,
                                             "Registrando Gallina",
                                             JOptionPane.OK_CANCEL_OPTION);
-                                    System.out.println("Raza: " + identificador.getText());
-                                    System.out.println("Edad: " + edadTxt.getText());
-                                    System.out.println("Peso (kg): " + new String(pesoTxt.getText()));
 
                                     // si cancela
                                     if (opcion == JOptionPane.CANCEL_OPTION) {
                                         opcion = JOptionPane.showConfirmDialog(null,
-                                                "¿Cancelar Registro de Vaca?",
-                                                "Cancelando Registro de Vaca",
+                                                "¿Cancelar Registro de Gallina?",
+                                                "Cancelando Registro de Gallina",
                                                 JOptionPane.YES_NO_OPTION,
                                                 JOptionPane.QUESTION_MESSAGE, null);
 
                                         if (opcion == JOptionPane.YES_OPTION) {
-                                            bien = true;
                                             break;
                                         } else {
                                             bien = false;
@@ -197,29 +195,57 @@ public class Main {
                                                     JOptionPane.ERROR_MESSAGE);
                                             bien = false;
                                         }
-                                    }
 
-                                    // validamos la edad de la Gallina
-                                    try {
-                                        edad = Integer.parseInt(edadTxt.getText());
-                                        // Cumple con los requisitos
-                                        if (edad < 1) {
+                                        // validamos la edad de la Gallina
+                                        try {
+                                            edad = Integer.parseInt(edadTxt.getText());
+                                            // Cumple con los requisitos
+                                            if (edad < 1) {
+                                                JOptionPane.showMessageDialog(null,
+                                                        "La edad debe ser 1 0 mayor para producción",
+                                                        "Edad no admitida - Registro Gallina",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                                bien = false;
+                                            }
+    
+                                            // # trabajo con el objeto
+                                        } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
-                                                    "La edad debe ser 1 0 mayor para producción",
-                                                    "Edad no admitida - Registro Gallina",
+                                                    "La edad debe ser un numero entero",
+                                                    "Error",
                                                     JOptionPane.ERROR_MESSAGE);
                                             bien = false;
                                         }
+                                    }
 
-                                        // # trabajo con el objeto
-                                    } catch (NumberFormatException e) {
-                                        JOptionPane.showMessageDialog(null,
-                                                "La edad debe ser un numero entero",
-                                                "Error",
-                                                JOptionPane.ERROR_MESSAGE);
-                                        bien = false;
+
+                                    if (bien) {
+                                        // confirmar registro
+                                        opcion = JOptionPane.showConfirmDialog(null,
+                                                "¿Registrar Gallina?\n"
+                                                        + "Usted ha ingresado lo siguiente:\n"
+                                                        + "Raza: " + identificador.getText() + "\n"
+                                                        + "Edad: " + edadTxt.getText() + "\n"
+                                                        + "Peso: " + pesoTxt.getText() + "\n",
+                                                "Confirmar Registro de Gallina",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.QUESTION_MESSAGE, null);
+                                        if (opcion == JOptionPane.NO_OPTION) {
+                                            bien = false;
+                                        } else {
+                                            JOptionPane.showMessageDialog(null,
+                                                    "Gallina Registrada Exitosamente",
+                                                    "Registro Exitoso",
+                                                    JOptionPane.INFORMATION_MESSAGE);
+
+                                            // # trabajo con el objeto
+                                            System.out.println("Raza: " + identificador.getText());
+                                            System.out.println("Edad: " + edad);
+                                            System.out.println("Peso (kg): " + peso);
+                                        }
                                     }
                                 } while (!bien);
+
                                 break;
 
                             case 1: // Registrar VACA
@@ -231,9 +257,9 @@ public class Main {
                                 labels.add(new JLabel("Peso (kg)", SwingConstants.TRAILING));
                                 panel.add(labels, BorderLayout.LINE_START);
 
-                                raza = new JTextField("Brahman");
-                                controls.add(raza);
-                                raza.setEditable(false);
+                                razaV = new JTextField("Brahman");
+                                controls.add(razaV);
+                                razaV.setEditable(false);
                                 edadTxt = new JTextField();
                                 controls.add(edadTxt);
                                 pesoTxt = new JTextField();
@@ -248,9 +274,6 @@ public class Main {
                                     opcion = JOptionPane.showConfirmDialog(null, panel,
                                             "Registrando Vaca",
                                             JOptionPane.OK_CANCEL_OPTION);
-                                    System.out.println("Raza: " + raza.getText());
-                                    System.out.println("Edad: " + edadTxt.getText());
-                                    System.out.println("Peso: " + new String(pesoTxt.getText()));
 
                                     // si cancela
                                     if (opcion == JOptionPane.CANCEL_OPTION) {
@@ -281,9 +304,6 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-
-                                            // # trabajo con el objeto
-
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
                                                     "El peso debe ser un numero",
@@ -302,15 +322,38 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-
-                                            // # trabajo con el objeto
-
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
                                                     "La edad debe ser un numero",
                                                     "Error ingresando un numero",
                                                     JOptionPane.ERROR_MESSAGE);
                                             bien = false;
+                                        }
+
+                                        // confirmar registro
+                                        if (bien) {
+                                            opcion = JOptionPane.showConfirmDialog(null,
+                                                    "¿Registrar Vaca?\n"
+                                                            + "Usted ha ingresado lo siguiente:\n"
+                                                            + "Raza: " + razaV.getText() + "\n"
+                                                            + "Edad: " + edadTxt.getText() + "\n"
+                                                            + "Peso: " + pesoTxt.getText() + "\n",
+                                                    "Confirmar Registro de Vaca",
+                                                    JOptionPane.YES_NO_OPTION,
+                                                    JOptionPane.QUESTION_MESSAGE, null);
+                                            if (opcion == JOptionPane.NO_OPTION) {
+                                                bien = false;
+                                            } else {
+                                                JOptionPane.showMessageDialog(null,
+                                                        " Vaca Registrada Exitosamente",
+                                                        "Registro Exitoso",
+                                                        JOptionPane.INFORMATION_MESSAGE);
+
+                                                // # trabajo con el objeto
+                                                System.out.println("Raza: " + razaV.getText());
+                                                System.out.println("Edad: " + edad);
+                                                System.out.println("Peso: " + peso);
+                                            }
                                         }
                                     }
                                 } while (!bien);
@@ -408,9 +451,9 @@ public class Main {
                                 JTextField fechaL = new JFormattedTextField(new Date());
                                 fechaL.setEditable(false);
                                 controls.add(fechaL);
-                                raza = new JTextField("Brahman");
-                                controls.add(raza);
-                                raza.setEditable(false);
+                                razaV = new JTextField("Brahman");
+                                controls.add(razaV);
+                                razaV.setEditable(false);
                                 lechesProdTxt = new JTextField();
                                 controls.add(lechesProdTxt);
 
@@ -423,7 +466,7 @@ public class Main {
                                     opcion = JOptionPane.showConfirmDialog(null, panel,
                                             "Registrando Leches Producidas",
                                             JOptionPane.OK_CANCEL_OPTION);
-                                    System.out.println("Raza: " + raza.getText());
+                                    System.out.println("Raza: " + razaV.getText());
                                     System.out.println("Edad: " + lechesProdTxt.getText());
 
                                     // si cancela
