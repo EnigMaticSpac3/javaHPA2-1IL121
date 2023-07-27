@@ -9,16 +9,23 @@ public class Main {
         Vaca vaca = new Vaca();
 
         // Objetos de JAVA
-        JPanel panel, inicioPanel;
-        JPanel labels, controls, mensaje, inicioLabels, inicioControls;
+        JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels;
+        JPanel labels, controls, mensaje, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2, inventarioGallina3, inventarioVaca;
         JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
-        panel = new JPanel(new BorderLayout(5, 5));
-        inicioPanel = new JPanel(new BorderLayout(5, 5));
-        labels = new JPanel(new GridLayout(0, 1, 2, 2));
-        controls = new JPanel(new GridLayout(0, 1, 2, 2));
-        mensaje = new JPanel(new GridLayout(0, 1, 0, 5));
-        inicioLabels = new JPanel(new GridLayout(4, 1, 10, 10));
-        inicioControls = new JPanel(new GridLayout(4, 1, 10, 10));
+        panel                       = new JPanel(new BorderLayout(5, 5));
+        inicioPanel                 = new JPanel(new BorderLayout(5, 5));
+        labels                      = new JPanel(new GridLayout(0, 1, 2, 2));
+        controls                    = new JPanel(new GridLayout(0, 1, 2, 2));
+        mensaje                     = new JPanel(new GridLayout(0, 1, 0, 5));
+        inicioLabels                = new JPanel(new GridLayout(4, 1, 10, 10));
+        inicioControls              = new JPanel(new GridLayout(4, 1, 10, 10));
+        inventarioPanel             = new JPanel(new GridLayout(12, 4, 2, 2));
+        inventarioGallinaLabels     = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina1          = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina2          = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina3          = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioVacaLabels        = new JPanel(new GridLayout(1, 3, 2, 2));
+        inventarioVaca              = new JPanel(new GridLayout(1, 3, 2, 2));
 
         // imagenes
         ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
@@ -26,6 +33,7 @@ public class Main {
         // Variables
         int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0;
         double peso = 0.0;
+        String panelInventario;
         String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
         String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
         String[] opcionesIngreso = { "Ingresar", "Salir" };
@@ -116,8 +124,68 @@ public class Main {
             switch (opcion) {
                 case 0:
                     do {
+                        inventarioPanel.removeAll();
+                        inventarioGallinaLabels.removeAll();
+                        inventarioGallina1.removeAll();
+                        inventarioGallina2.removeAll();
+                        inventarioGallina3.removeAll();
+                        inventarioVacaLabels.removeAll();
+                        inventarioVaca.removeAll();
+                         
+                        inventarioPanel.setBorder(BorderFactory.createTitledBorder("Inventario de la Granja"));
+                        inventarioGallinaLabels.add(new JLabel("Raza"));
+                        inventarioGallinaLabels.add(new JLabel("Identificador", SwingConstants.CENTER));
+                        inventarioGallinaLabels.add(new JLabel("Cantidad", SwingConstants.CENTER));
+                        inventarioGallinaLabels.add(new JLabel("Producción de Huevos", SwingConstants.CENTER));
+
+                        // Fila 1 de las Gallinas
+                        inventarioGallina1.add(new JLabel("Isa Brown"));
+                        inventarioGallina1.add(new JLabel("ISBWN", SwingConstants.CENTER));
+                        inventarioGallina1.add(new JLabel("20", SwingConstants.CENTER));
+                        inventarioGallina1.add(new JLabel("10 huevos", SwingConstants.CENTER));
+
+                        // Fila 2 de las Gallinas
+                        inventarioGallina2.add(new JLabel("Lohman"));
+                        inventarioGallina2.add(new JLabel("LHMN", SwingConstants.CENTER));
+                        inventarioGallina2.add(new JLabel("15", SwingConstants.CENTER));
+                        inventarioGallina2.add(new JLabel("8 huevos", SwingConstants.CENTER));
+                        
+                        // Fila 3 de las Gallinas
+                        inventarioGallina3.add(new JLabel("Castellana Negra"));
+                        inventarioGallina3.add(new JLabel("CTLANGR", SwingConstants.CENTER));
+                        inventarioGallina3.add(new JLabel("12", SwingConstants.CENTER));
+                        inventarioGallina3.add(new JLabel("6 huevos", SwingConstants.CENTER));
+                        
+                        // Labels de las Vacas
+                        inventarioVacaLabels.add(new JLabel("Raza"));
+                        inventarioVacaLabels.add(new JLabel("Cantidad", SwingConstants.CENTER));
+                        inventarioVacaLabels.add(new JLabel("Producción de Leche (litros)", SwingConstants.CENTER));
+
+                        // Fila de las Vacas
+                        inventarioVaca.add(new JLabel("Brahman"));
+                        inventarioVaca.add(new JLabel("5", SwingConstants.CENTER));
+                        inventarioVaca.add(new JLabel("20 litros", SwingConstants.CENTER));
+
+                        inventarioPanel.add(new JLabel(""));
+                        inventarioPanel.add(new JLabel("Gallinas"));
+                        inventarioPanel.add(inventarioGallinaLabels);
+                        inventarioPanel.add(new JSeparator());
+                        inventarioPanel.add(inventarioGallina1);
+                        inventarioPanel.add(inventarioGallina2);
+                        inventarioPanel.add(inventarioGallina3);
+                        inventarioPanel.add(new JLabel(""));
+                        inventarioPanel.add(new JLabel("Vacas:"));
+                        inventarioPanel.add(inventarioVacaLabels);
+                        inventarioPanel.add(new JSeparator());
+                        inventarioPanel.add(inventarioVaca);      
+
+                        panelInventario = ""
+                        + "----------------Inventario----------------\n"
+                        + "Gallinnas:\n"
+                        + "Raza\t|\tIdentificador\t|\tCantidad\t|\tProducción de Huevos\n"
+                        + "";
                         opcion = JOptionPane.showOptionDialog(null,
-                                null,
+                                inventarioPanel,
                                 "Inventario de la Granja",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                                 null,
@@ -466,7 +534,7 @@ public class Main {
                                 controls.removeAll();
                                 labels.add(new JLabel("Fecha", SwingConstants.TRAILING));
                                 labels.add(new JLabel("Raza", SwingConstants.TRAILING));
-                                labels.add(new JLabel("# Leches Producidas", SwingConstants.TRAILING));
+                                labels.add(new JLabel("# Leches Prod. (litros)", SwingConstants.TRAILING));
                                 panel.add(labels, BorderLayout.LINE_START);
 
                                 // fecha para registro (FEATURE)
