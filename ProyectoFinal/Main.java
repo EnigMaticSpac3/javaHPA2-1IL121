@@ -5,27 +5,29 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         // Objetos
-        Inventario inventario = new Inventario(0, 0);
+        Inventario inventario = new Inventario();
         Vaca vaca = new Vaca();
+        Gallina gallina = new Gallina();
 
         // Objetos de JAVA
         JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels;
-        JPanel labels, controls, mensaje, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2, inventarioGallina3, inventarioVaca;
+        JPanel labels, controls, mensaje, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2,
+                inventarioGallina3, inventarioVaca;
         JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
-        panel                       = new JPanel(new BorderLayout(5, 5));
-        inicioPanel                 = new JPanel(new BorderLayout(5, 5));
-        labels                      = new JPanel(new GridLayout(0, 1, 2, 2));
-        controls                    = new JPanel(new GridLayout(0, 1, 2, 2));
-        mensaje                     = new JPanel(new GridLayout(0, 1, 0, 5));
-        inicioLabels                = new JPanel(new GridLayout(4, 1, 10, 10));
-        inicioControls              = new JPanel(new GridLayout(4, 1, 10, 10));
-        inventarioPanel             = new JPanel(new GridLayout(12, 4, 2, 2));
-        inventarioGallinaLabels     = new JPanel(new GridLayout(1, 4, 2, 2));
-        inventarioGallina1          = new JPanel(new GridLayout(1, 4, 2, 2));
-        inventarioGallina2          = new JPanel(new GridLayout(1, 4, 2, 2));
-        inventarioGallina3          = new JPanel(new GridLayout(1, 4, 2, 2));
-        inventarioVacaLabels        = new JPanel(new GridLayout(1, 3, 2, 2));
-        inventarioVaca              = new JPanel(new GridLayout(1, 3, 2, 2));
+        panel = new JPanel(new BorderLayout(5, 5));
+        inicioPanel = new JPanel(new BorderLayout(5, 5));
+        labels = new JPanel(new GridLayout(0, 1, 2, 2));
+        controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        mensaje = new JPanel(new GridLayout(0, 1, 0, 5));
+        inicioLabels = new JPanel(new GridLayout(4, 1, 10, 10));
+        inicioControls = new JPanel(new GridLayout(4, 1, 10, 10));
+        inventarioPanel = new JPanel(new GridLayout(12, 4, 2, 2));
+        inventarioGallinaLabels = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina1 = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina2 = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioGallina3 = new JPanel(new GridLayout(1, 4, 2, 2));
+        inventarioVacaLabels = new JPanel(new GridLayout(1, 3, 2, 2));
+        inventarioVaca = new JPanel(new GridLayout(1, 3, 2, 2));
 
         // imagenes
         ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
@@ -45,67 +47,68 @@ public class Main {
         // Inicio
         iniciado = false; // con esto sabemos el estado del programa (iniciado o no)
         do { // todo el programa
-            if (!iniciado) {
-                do {
-                    iniciado = true; // con esto sabemos que ya se inicio
-                    panel.removeAll();
-                    inicioPanel.removeAll();
-                    mensaje.removeAll();
-                    inicioLabels.removeAll();
-                    inicioControls.removeAll();
+             // if (!iniciado) {
+             // do {
+             // iniciado = true; // con esto sabemos que ya se inicio
+             // panel.removeAll();
+             // inicioPanel.removeAll();
+             // mensaje.removeAll();
+             // inicioLabels.removeAll();
+             // inicioControls.removeAll();
 
-                    mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
-                    mensaje.add(new JLabel("Ingrese la capacidad de su granja:", SwingConstants.CENTER));
-                    mensaje.add(new JLabel("", SwingConstants.CENTER));
-                    mensaje.add(new JLabel(""));
-                    panel.add(mensaje, BorderLayout.NORTH);
+            // mensaje.add(new JLabel("Iniciando el Sistema", SwingConstants.CENTER));
+            // mensaje.add(new JLabel("Ingrese la capacidad de su granja:",
+            // SwingConstants.CENTER));
+            // mensaje.add(new JLabel("", SwingConstants.CENTER));
+            // mensaje.add(new JLabel(""));
+            // panel.add(mensaje, BorderLayout.NORTH);
 
-                    inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
-                    inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
-                    inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
+            // inicioLabels.add(new JLabel("Gallinas:", SwingConstants.TRAILING));
+            // inicioLabels.add(new JLabel("Vacas:", SwingConstants.TRAILING));
+            // inicioPanel.add(inicioLabels, BorderLayout.LINE_START);
 
-                    cantGallinasTxt = new JTextField();
-                    inicioControls.add(cantGallinasTxt);
-                    cantVacasTxt = new JTextField();
-                    inicioControls.add(cantVacasTxt);
-                    inicioPanel.add(inicioControls, BorderLayout.CENTER);
+            // cantGallinasTxt = new JTextField();
+            // inicioControls.add(cantGallinasTxt);
+            // cantVacasTxt = new JTextField();
+            // inicioControls.add(cantVacasTxt);
+            // inicioPanel.add(inicioControls, BorderLayout.CENTER);
 
-                    panel.add(inicioPanel, BorderLayout.CENTER);
+            // panel.add(inicioPanel, BorderLayout.CENTER);
 
-                    opcion = JOptionPane.showOptionDialog(null,
-                            panel,
-                            "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            inicio,
-                            opcionesIngreso, null);
+            // opcion = JOptionPane.showOptionDialog(null,
+            // panel,
+            // "Granja", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
+            // inicio,
+            // opcionesIngreso, null);
 
-                    if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
-                        System.exit(0);
-                    }
-                    // validamos los datos ingresados
-                    try {
-                        cantGallinas = Integer.parseInt(cantGallinasTxt.getText());
-                        cantVacas = Integer.parseInt(cantVacasTxt.getText());
-                        // Cumple con los requisitos
-                        if (cantGallinas < 0 || cantVacas < 0) {
-                            JOptionPane.showMessageDialog(null,
-                                    "La cantidad de Gallinas y Vacas no puede ser negativa",
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                            iniciado = false;
+            // if (opcion == JOptionPane.CLOSED_OPTION || opcion == 1) {
+            // System.exit(0);
+            // }
+            // // validamos los datos ingresados
+            // try {
+            // cantGallinas = Integer.parseInt(cantGallinasTxt.getText());
+            // cantVacas = Integer.parseInt(cantVacasTxt.getText());
+            // // Cumple con los requisitos
+            // if (cantGallinas < 0 || cantVacas < 0) {
+            // JOptionPane.showMessageDialog(null,
+            // "La cantidad de Gallinas y Vacas no puede ser negativa",
+            // "Error",
+            // JOptionPane.ERROR_MESSAGE);
+            // iniciado = false;
 
-                        } else {
-                            inventario = new Inventario(cantGallinas, cantVacas);
-                        }
+            // } else {
+            // inventario = new Inventario();
+            // }
 
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null,
-                                "La cantidad de Gallinas y Vacas debe ser un numero",
-                                "Error ingresando un numero",
-                                JOptionPane.ERROR_MESSAGE);
-                        iniciado = false;
-                    }
-                } while (!iniciado);
-            }
+            // } catch (NumberFormatException e) {
+            // JOptionPane.showMessageDialog(null,
+            // "La cantidad de Gallinas y Vacas debe ser un numero",
+            // "Error ingresando un numero",
+            // JOptionPane.ERROR_MESSAGE);
+            // iniciado = false;
+            // }
+            // } while (!iniciado);
+            // }
 
             // PANTALLA DE INICIO
             opcion = JOptionPane.showOptionDialog(null,
@@ -116,7 +119,7 @@ public class Main {
                             + "_______________________________"
                             + "\nEspacio Disponible\n"
                             + "Gallinas: " + inventario.gallinas.length + "\n"
-                            + "Vacas: " + inventario.vaca.length + "\n",
+                            + "Vacas: " + inventario.vacas.length + "\n",
                     "Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     inicio,
                     opcionesInicio, null);
@@ -131,7 +134,7 @@ public class Main {
                         inventarioGallina3.removeAll();
                         inventarioVacaLabels.removeAll();
                         inventarioVaca.removeAll();
-                         
+
                         inventarioPanel.setBorder(BorderFactory.createTitledBorder("Inventario de la Granja"));
                         inventarioGallinaLabels.add(new JLabel("Raza"));
                         inventarioGallinaLabels.add(new JLabel("Identificador", SwingConstants.CENTER));
@@ -141,21 +144,30 @@ public class Main {
                         // Fila 1 de las Gallinas
                         inventarioGallina1.add(new JLabel("Isa Brown"));
                         inventarioGallina1.add(new JLabel("ISBWN", SwingConstants.CENTER));
-                        inventarioGallina1.add(new JLabel("20", SwingConstants.CENTER));
-                        inventarioGallina1.add(new JLabel("10 huevos", SwingConstants.CENTER));
+                        inventarioGallina1.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[0]),
+                                SwingConstants.CENTER));
+                        inventarioGallina1
+                                .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[0]) + " huevos",
+                                        SwingConstants.CENTER));
 
                         // Fila 2 de las Gallinas
                         inventarioGallina2.add(new JLabel("Lohman"));
                         inventarioGallina2.add(new JLabel("LHMN", SwingConstants.CENTER));
-                        inventarioGallina2.add(new JLabel("15", SwingConstants.CENTER));
-                        inventarioGallina2.add(new JLabel("8 huevos", SwingConstants.CENTER));
-                        
+                        inventarioGallina2.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[1]),
+                                SwingConstants.CENTER));
+                        inventarioGallina2
+                                .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[1]) + " huevos",
+                                        SwingConstants.CENTER));
+
                         // Fila 3 de las Gallinas
                         inventarioGallina3.add(new JLabel("Castellana Negra"));
                         inventarioGallina3.add(new JLabel("CTLANGR", SwingConstants.CENTER));
-                        inventarioGallina3.add(new JLabel("12", SwingConstants.CENTER));
-                        inventarioGallina3.add(new JLabel("6 huevos", SwingConstants.CENTER));
-                        
+                        inventarioGallina3.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[2]),
+                                SwingConstants.CENTER));
+                        inventarioGallina3
+                                .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[2]) + " huevos",
+                                        SwingConstants.CENTER));
+
                         // Labels de las Vacas
                         inventarioVacaLabels.add(new JLabel("Raza"));
                         inventarioVacaLabels.add(new JLabel("Cantidad", SwingConstants.CENTER));
@@ -163,8 +175,10 @@ public class Main {
 
                         // Fila de las Vacas
                         inventarioVaca.add(new JLabel("Brahman"));
-                        inventarioVaca.add(new JLabel("5", SwingConstants.CENTER));
-                        inventarioVaca.add(new JLabel("20 litros", SwingConstants.CENTER));
+                        inventarioVaca.add(
+                                new JLabel(Integer.toString(inventario.getCantidadVacas()), SwingConstants.CENTER));
+                        inventarioVaca.add(new JLabel(Integer.toString(inventario.getCantidadLeche()) + " litros",
+                                SwingConstants.CENTER));
 
                         inventarioPanel.add(new JLabel(""));
                         inventarioPanel.add(new JLabel("Gallinas"));
@@ -177,13 +191,8 @@ public class Main {
                         inventarioPanel.add(new JLabel("Vacas:"));
                         inventarioPanel.add(inventarioVacaLabels);
                         inventarioPanel.add(new JSeparator());
-                        inventarioPanel.add(inventarioVaca);      
+                        inventarioPanel.add(inventarioVaca);
 
-                        panelInventario = ""
-                        + "----------------Inventario----------------\n"
-                        + "Gallinnas:\n"
-                        + "Raza\t|\tIdentificador\t|\tCantidad\t|\tProducción de Huevos\n"
-                        + "";
                         opcion = JOptionPane.showOptionDialog(null,
                                 inventarioPanel,
                                 "Inventario de la Granja",
@@ -275,8 +284,6 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-
-                                            // # trabajo con el objeto
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
                                                     "La edad debe ser un numero entero",
@@ -306,6 +313,10 @@ public class Main {
                                                     JOptionPane.INFORMATION_MESSAGE);
 
                                             // # trabajo con el objeto
+                                            gallina.asignar(edad, peso, razaG.getSelectedItem().toString(),
+                                                    identificador.getText());
+                                            inventario.registrarGallina(gallina);
+
                                             System.out.println("Raza: " + identificador.getText());
                                             System.out.println("Edad: " + edad);
                                             System.out.println("Peso (kg): " + peso);
@@ -417,6 +428,9 @@ public class Main {
                                                         JOptionPane.INFORMATION_MESSAGE);
 
                                                 // # trabajo con el objeto
+                                                vaca.asignar(edad, peso, razaV.getText());
+                                                inventario.registrarVaca(vaca);
+
                                                 System.out.println("Raza: " + razaV.getText());
                                                 System.out.println("Edad: " + edad);
                                                 System.out.println("Peso: " + peso);
@@ -490,8 +504,6 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-
-                                            // # trabajo con el objeto
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
                                                     "El # Huevos debe ser un numero",
@@ -521,7 +533,10 @@ public class Main {
                                                     JOptionPane.INFORMATION_MESSAGE);
 
                                             // # trabajo con el objeto
-                                            System.out.println("Raza: " + razaGP.getSelectedItem());
+                                            gallina.setProduccionHuevos(huevosProd);
+                                            inventario.registrarHuevos(identificadorP.getText(), gallina.getProduccionHuevos());
+
+                                            System.out.println("Raza: " + identificadorP.getText());
                                             System.out.println("# Huevos: " + huevosProd);
                                         }
                                     }
@@ -585,9 +600,6 @@ public class Main {
                                                         JOptionPane.ERROR_MESSAGE);
                                                 bien = false;
                                             }
-
-                                            // # trabajo con el objeto
-
                                         } catch (NumberFormatException e) {
                                             JOptionPane.showMessageDialog(null,
                                                     "El # de leches producidas debe ser un numero",
@@ -616,6 +628,9 @@ public class Main {
                                                     JOptionPane.INFORMATION_MESSAGE);
 
                                             // # trabajo con el objeto
+                                            vaca.setLecheProducida(lechesProd);
+                                            inventario.registrarLeche(vaca.getLecheProducida());
+
                                             System.out.println("Raza: " + razaV.getText());
                                             System.out.println("# Leches Prod: " + lechesProd);
                                         }

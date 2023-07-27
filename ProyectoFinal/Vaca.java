@@ -3,9 +3,12 @@
 public class Vaca extends Animal {
     private int lecheProducida;
 
-    public void asignar(int edad, double peso, String nombreRaza, int lecheProducida) {
+    public void asignar(int edad, double peso, String nombreRaza) {
         super.asignar(edad, peso, nombreRaza);
-        this.lecheProducida = lecheProducida;
+    }
+
+    public void setLecheProducida(int produccion) {
+        this.lecheProducida = produccion;
     }
 
     public int getLecheProducida () {
