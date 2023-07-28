@@ -493,7 +493,7 @@ public class Main {
 
                                                 // # trabajo con el objeto
                                                 gallina.setProduccionHuevos(huevosProd);
-                                                inventario.registrarHuevos(identificadorP.getText(),
+                                                inventario.registrarHuevos(gallina, identificadorP.getText(),
                                                         gallina.getProduccionHuevos());
 
                                                 System.out.println("Raza: " + identificadorP.getText());
@@ -501,7 +501,6 @@ public class Main {
                                             }
                                         }
                                     } while (!bien);
-                                    // inventario.registrarHuevos();
                                     break;
                                 case 3: // Registro de produccion de leche
                                     panel.removeAll();
@@ -589,7 +588,7 @@ public class Main {
 
                                                 // # trabajo con el objeto
                                                 vaca.setLecheProducida(lechesProd);
-                                                inventario.registrarLeche(vaca.getLecheProducida());
+                                                inventario.registrarLeche(vaca, vaca.getLecheProducida());
 
                                                 System.out.println("Raza: " + razaV.getText());
                                                 System.out.println("# Leches Prod: " + lechesProd);
