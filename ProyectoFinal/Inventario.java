@@ -4,8 +4,12 @@ public class Inventario {
     // cantidad real
     int[] cantidadGallinas;
     int[] huevosProducidos;
+    int[] huevosVendidos;
+    int[] huevosDisponibles;
     int cantidadVacas;
     int cantidadLeche;
+    int lecheVendida;
+    int lecheDisponible;
     // capacidad
     Gallina[] gallinas;
     Vaca[] vacas;
@@ -17,6 +21,8 @@ public class Inventario {
         vacas               = new Vaca[3];
         cantidadGallinas    = new int[3];
         huevosProducidos    = new int[3];
+        huevosVendidos      = new int[3];
+        huevosDisponibles   = new int[3];
         cantidadVacas       = 0;
         cantidadLeche       = 0;
     }
@@ -35,16 +41,10 @@ public class Inventario {
                 cantidadGallinas[2]++;
                 break;
         }        
+
     }    
 
     public void registrarVaca(Vaca vaca) {
-        // int i;
-        // for (i = 0; i < vacas.length; i++) {
-        //     if (vacas[i] == null) {
-        //         vacas[i] = vaca;
-        //         break;
-        //     }
-        // }
         cantidadVacas++;
     }
 
@@ -60,12 +60,41 @@ public class Inventario {
             case "CTLANGR":
                 huevosProducidos[2] += cantidad;
                 break;
-        }        
+        }       
+        huevosDisponibles[0] = huevosProducidos[0] - huevosVendidos[0];
+        huevosDisponibles[1] = huevosProducidos[1] - huevosVendidos[1];
+        huevosDisponibles[2] = huevosProducidos[2] - huevosVendidos[2]; 
     }
 
     public void registrarLeche(int cantidad) {
         cantidadLeche += cantidad;
+        lecheDisponible = cantidadLeche - lecheVendida;
     }
+
+    public void venderHuevos(String raza, int cantidad) {
+        switch(raza) {
+            // "ISBWN", "LHMN", "CTLANGR" 
+            case "ISBWN":
+                huevosVendidos[0] += cantidad;
+                break;
+            case "LHMN":
+                huevosVendidos[1] += cantidad;
+                break;
+            case "CTLANGR":
+                huevosVendidos[2] += cantidad;
+                break;
+        }       
+        huevosDisponibles[0] = huevosProducidos[0] - huevosVendidos[0];
+        huevosDisponibles[1] = huevosProducidos[1] - huevosVendidos[1];
+        huevosDisponibles[2] = huevosProducidos[2] - huevosVendidos[2];  
+    }
+
+    public void venderLeche(int cantidad) {
+        lecheVendida += cantidad;
+        lecheDisponible = cantidadLeche - lecheVendida;
+    }
+
+
 
 
     public int[] getCantidadGallinas() {
@@ -91,4 +120,21 @@ public class Inventario {
     public Vaca[] getVacas() {
         return vacas;
     }
+
+    public int[] getHuevosVendidos() {
+        return huevosVendidos;
+    }
+
+    public int getLecheVendida() {
+        return lecheVendida;
+    }
+
+    public int[] getHuevosDisponibles() {
+        return huevosDisponibles;
+    }
+
+    public int getLecheDisponible() {
+        return lecheDisponible;
+    }
+
 }
