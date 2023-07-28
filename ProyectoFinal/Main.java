@@ -255,7 +255,14 @@ public class Main {
                                                 // Cumple con los requisitos
                                                 if (edad < 1) {
                                                     JOptionPane.showMessageDialog(null,
-                                                            "La edad debe ser 1 0 mayor para producción",
+                                                            "La edad debe ser 1 o mayor para producción",
+                                                            "Edad no admitida - Registro Gallina",
+                                                            JOptionPane.ERROR_MESSAGE);
+                                                    bien = false;
+                                                }
+                                                if (edad > 6) {
+                                                    JOptionPane.showMessageDialog(null,
+                                                            "La edad de la gallina no se acepta. Está fuera de la vida útil",
                                                             "Edad no admitida - Registro Gallina",
                                                             JOptionPane.ERROR_MESSAGE);
                                                     bien = false;
@@ -619,19 +626,17 @@ public class Main {
 
                                                 // # trabajo con el objeto
                                                 vaca.setLecheProducida(lechesProd);
-                                                inventario.registrarLeche(vaca, vaca.getLecheProducida());
 
                                                 // guardar registro en la lista enlazada
                                                 Vaca vacaR = new Vaca();
                                                 vacaR.setLecheProducida(lechesProd);
-                                                inventario.registrarLeche(vacaR, vacaR.getLecheProducida());
+                                                inventario.registrarLeche(vacaR, lechesProd);
 
                                                 System.out.println("Raza: " + razaV.getText());
                                                 System.out.println("# Leches Prod: " + lechesProd);
                                             }
                                         }
                                     } while (!bien);
-                                    // inventario.registrarLeche();
                                     break;
                                 case 4: // Regresar
                                     opcion = JOptionPane.CLOSED_OPTION;
@@ -682,6 +687,14 @@ public class Main {
                                                 "El # de leches vendidas no puede ser negativo",
                                                 "Numero no admitido - Registro Venta",
                                                 JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
+
+                                    // verificar que la cantidad de leches solicitadas no sobrepase la cantidad disponible.
+                                    if (cantLitrosLeche > inventario.getLecheDisponible()) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "El # de Litros solicitados sobrepasa la cantidad disponible",
+                                                "Cantidad no aceptada", JOptionPane.ERROR_MESSAGE);
                                         bien = false;
                                     }
                                 } catch (NumberFormatException e) {
@@ -756,20 +769,20 @@ public class Main {
                                     bien = false;
                                 }
 
+                                
+                            }
+                            
+                            // si todo salió bien, creamos la factura y la guardamos en el registro.
+                            if (bien) {
                                 // llamamos a los metodos de venta
                                 if (cantDocenaHuevo > 0) {
                                     raza = identificadores[ventasPanel.razaG.getSelectedIndex()];
                                     inventario.venderHuevos(raza, cantDocenaHuevo);
                                 }
-
+    
                                 if (cantLitrosLeche > 0) {
                                     inventario.venderLeche(cantLitrosLeche);
                                 }
-
-                            }
-
-                            // si todo salió bien, creamos la factura y la guardamos en el registro.
-                            if (bien) {
                                 // totalVenta = Double.parseDouble(ventasPanel.totalTxt.getText());
                                 precioVentaHuevo = Double.parseDouble(ventasPanel.precioVentaHuevo.getText());
                                 precioVentaLeche = Double.parseDouble(ventasPanel.precioVentaLeche.getText());
@@ -978,7 +991,8 @@ public class Main {
                                         informeLeche.add(new JLabel("" + vacas.getLecheProducida()));
                                     }
                                     panel.add(informeLeche, BorderLayout.CENTER);
-                                    JOptionPane.showMessageDialog(null, panel, "Historial de Registro de Leches Producidas",
+                                    JOptionPane.showMessageDialog(null, panel,
+                                            "Historial de Registro de Leches Producidas",
                                             JOptionPane.INFORMATION_MESSAGE, null);
                                     break;
 
