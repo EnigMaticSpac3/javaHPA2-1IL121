@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class VentasPanel extends JPanel {
     public JPanel ventaHuevoPanel, ventaLechePanel, totalPanel;
-    public JTextField precioVentaHuevo, cantDocenasHuevo, precioVentaLeche, cantLitrosLeche;
+    public JTextField precioVentaHuevo, cantDocenasHuevo, precioVentaLeche, cantLitrosLeche, nombreCliente;
     public JLabel subTotalHuevoTxt, subTotalLecheTxt, totalTxt;
     public VentasPanel() {
         ventaHuevoPanel = new JPanel(new GridLayout(4, 2, 2, 2));
@@ -14,6 +14,9 @@ public class VentasPanel extends JPanel {
         
         setBorder(BorderFactory.createTitledBorder("Sistema de Ventas"));
         setLayout(new BorderLayout(5, 5));
+
+        nombreCliente = new JTextField();
+
         // venta de huevos
         ventaHuevoPanel.setBorder(BorderFactory.createTitledBorder("Venta de Huevos (docena)"));
         precioVentaHuevo = new JTextField();
@@ -48,6 +51,8 @@ public class VentasPanel extends JPanel {
         totalPanel.add(totalTxt);
 
         // agregar los componentes al panel principal
+        add(new JLabel("Nombre del Cliente: "));
+        add(nombreCliente);
         add(ventaHuevoPanel, BorderLayout.WEST);
         add(new JSeparator(SwingConstants.VERTICAL), BorderLayout.CENTER);
         add(ventaLechePanel, BorderLayout.EAST);

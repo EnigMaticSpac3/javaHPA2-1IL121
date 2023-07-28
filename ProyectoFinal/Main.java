@@ -15,6 +15,7 @@ public class Main {
             Vaca vaca = new Vaca();
             Gallina gallina = new Gallina();
             VentasPanel ventasPanel = new VentasPanel();
+            Factura factura = new Factura();
 
             // Objetos de JAVA
             JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels;
@@ -42,9 +43,9 @@ public class Main {
 
             // Variables
             int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0, totalVendido = 0,
-                    totalHuevos = 0, totalLeche = 0, totalVentaHuevos = 0, totalVentaLeche = 0, totalVenta = 0,
-                    subTotalLeche = 0;
-            double peso = 0.0;
+                    cantDocenaHuevo = 0, cantLitrosLeche = 0;
+            double peso = 0.0, totalVentaHuevos = 0, totalVentaLeche = 0, totalVenta = 0, precioVentaLeche = 0,
+                    precioVentaHuevo = 0;
             String panelInventario;
             String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
             String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
@@ -597,7 +598,11 @@ public class Main {
                         opcion = 0;
                         break;
                     case 1:
-
+                        // reseteamos los TextField del panel
+                        ventasPanel.cantLitrosLeche.setText("");
+                        ventasPanel.cantDocenasHuevo.setText("");
+                        ventasPanel.precioVentaLeche.setText("");
+                        ventasPanel.precioVentaHuevo.setText("");
                         do {
                             bien = true;
                             cancelado = false;
@@ -621,7 +626,88 @@ public class Main {
                                 }
                             }
 
+                            // validamos los datos ingresados
+                            if (!cancelado) {
+                                // validar el # leches producidas de la vaca
+                                try {
+                                    cantLitrosLeche = Integer.parseInt(ventasPanel.cantLitrosLeche.getText());
+                                    // Cumple con los requisitos
+                                    if (cantLitrosLeche < 0) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "El # de leches vendidas no puede ser negativo",
+                                                "Numero no admitido - Registro Venta",
+                                                JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "El # de leches vendidas debe ser un numero",
+                                            "Error ingresando un numero",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    bien = false;
+                                }
+                                // validar el # huevos vendidos de la gallina
+                                try {
+                                    cantDocenaHuevo = Integer.parseInt(ventasPanel.cantDocenasHuevo.getText());
+                                    // Cumple con los requisitos
+                                    if (cantDocenaHuevo < 0) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "El # de huevos vendidos no puede ser negativo",
+                                                "Numero no admitido - Registro Venta",
+                                                JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "El # de huevos vendidos debe ser un numero",
+                                            "Error ingresando un numero",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    bien = false;
+                                }
+                                // validar el precio de venta de la leche
+                                try {
+                                    precioVentaLeche = Double.parseDouble(ventasPanel.precioVentaLeche.getText());
+                                    // Cumple con los requisitos
+                                    if (precioVentaLeche < 0) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "El precio de venta de la leche no puede ser negativo",
+                                                "Numero no admitido - Registro Venta",
+                                                JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "El precio de venta de la leche debe ser un numero",
+                                            "Error ingresando un numero",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    bien = false;
+                                }
+                                // validar el precio de venta de los huevos
+                                try {
+                                    precioVentaHuevo = Double.parseDouble(ventasPanel.precioVentaHuevo.getText());
+                                    // Cumple con los requisitos
+                                    if (precioVentaHuevo < 0) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "El precio de venta de los huevos no puede ser negativo",
+                                                "Numero no admitido - Registro Venta",
+                                                JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "El precio de venta de los huevos debe ser un numero",
+                                            "Error ingresando un numero",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    bien = false;
+                                }
+                            }
+
                         } while (!bien);
+
+                        // si todo salió bien, creamos la factura y la guardamos en el registro.
+                        if (bien) {
+
+                        }
 
                         break;
                     case 2:
