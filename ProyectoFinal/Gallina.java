@@ -1,18 +1,24 @@
 // CLASE HIJO DE 'ANIMAL'
 
-public class Gallina {
-    private int[] produccionDiaria;
+public class Gallina extends Animal {
+    private String identificador;
+    private int produccionHuevos;
 
-    public Gallina() {
-        produccionDiaria = new int[365]; 
-        //para los 365 dias pues
-    }
-    public void registrarProduccionDiaria(int dia, int cantidadHuevos){
-        produccionDiaria[dia] = cantidadHuevos;
+    public void asignar(int edad, double peso, String nombreRaza, String identificador) {
+        super.asignar(edad, peso, nombreRaza);
+        this.identificador = identificador;
     }
 
-    public int obtenerProduccionDiaria(int dia){
-        return produccionDiaria[dia];
+    public void setProduccionHuevos(int produccion) {
+        this.produccionHuevos = produccion;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public int getProduccionHuevos () {
+        return produccionHuevos;
     }
 
 }
