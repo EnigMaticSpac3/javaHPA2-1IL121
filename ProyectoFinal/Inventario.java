@@ -10,16 +10,11 @@ public class Inventario {
     int cantidadLeche;
     int lecheVendida;
     int lecheDisponible;
-    // capacidad
-    Gallina[] gallinas;
-    Vaca[] vacas;
 
     // Clase de Registro / Historial
     Registro registro = new Registro();
 
     public Inventario() {
-        gallinas            = new Gallina[3];
-        vacas               = new Vaca[3];
         cantidadGallinas    = new int[3];
         huevosProducidos    = new int[3];
         huevosVendidos      = new int[3];
@@ -122,14 +117,6 @@ public class Inventario {
     
     public int getCantidadVacas() {
         return cantidadVacas;
-    }
-    
-    public Gallina[] getGallinas() {
-        return gallinas;
-    }
-    
-    public Vaca[] getVacas() {
-        return vacas;
     }
 
     public int[] getHuevosVendidos() {

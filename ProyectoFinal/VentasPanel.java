@@ -168,18 +168,4 @@ public class VentasPanel extends JPanel {
         double total = huevoSubtotal + lecheSubtotal;
         totalTxt.setText("Total: $" + String.format("%.2f", total));
     }
-
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> {
-    //         JFrame frame = new JFrame("Ventas");
-    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //         VentasPanel ventasPanel = new VentasPanel();
-    //         ventasPanel.totalTxt = new JLabel("Total: 0.00");
-    //         ventasPanel.totalTxt.setForeground(Color.RED);
-    //         ventasPanel.add(ventasPanel.totalTxt);
-    //         frame.add(ventasPanel);
-    //         frame.pack();
-    //         frame.setVisible(true);
-    //     });
-    // }
 }
