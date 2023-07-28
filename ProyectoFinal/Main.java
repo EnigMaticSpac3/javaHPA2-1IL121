@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.util.Date;
 
@@ -17,18 +15,16 @@ public class Main {
             Factura factura = new Factura();
 
             // Objetos de JAVA
-            JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels, facturaPanel;
-            JPanel labels, controls, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2,
+            JPanel panel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels, facturaPanel, panelInforme;
+            JPanel labels, controls, inventarioGallina1, inventarioGallina2,
                     inventarioGallina3, inventarioVaca, facturaLabels, facturaCamposHuevo, facturaCamposLeche,
-                    facturaCabeza, facturaMedio, facturaPie;
-            JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
+                    facturaCabeza, facturaMedio, facturaPie, informeAnimales, informeHuevos, informeHuevos1,
+                    informeHuevos2, informeHuevos3, informeFactura, informeFacturaLabels, informeLeche;
+            JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt;
 
             panel = new JPanel(new BorderLayout(5, 5));
-            inicioPanel = new JPanel(new BorderLayout(5, 5));
             labels = new JPanel(new GridLayout(0, 1, 2, 2));
             controls = new JPanel(new GridLayout(0, 1, 2, 2));
-            inicioLabels = new JPanel(new GridLayout(4, 1, 10, 10));
-            inicioControls = new JPanel(new GridLayout(4, 1, 10, 10));
             inventarioPanel = new JPanel(new GridLayout(12, 6, 2, 2));
             inventarioGallinaLabels = new JPanel(new GridLayout(1, 6, 2, 2));
             inventarioGallina1 = new JPanel(new GridLayout(1, 6, 2, 2));
@@ -43,26 +39,35 @@ public class Main {
             facturaCabeza = new JPanel(new GridLayout(0, 1, 2, 2));
             facturaMedio = new JPanel(new GridLayout(4, 4, 3, 3));
             facturaPie = new JPanel(new GridLayout(3, 1, 2, 2));
+            panelInforme = new JPanel(new GridLayout(0, 2, 2, 2));
+            informeAnimales = new JPanel(new GridLayout(0, 5, 5, 5));
+            informeHuevos = new JPanel(new BorderLayout(2, 2));
+            informeHuevos1 = new JPanel(new GridLayout(0, 3, 4, 4));
+            informeHuevos2 = new JPanel(new GridLayout(0, 3, 4, 4));
+            informeHuevos3 = new JPanel(new GridLayout(0, 3, 4, 4));
+            informeFactura = new JPanel(new GridLayout(0, 5, 3, 3));
+            informeFacturaLabels = new JPanel(new GridLayout(1, 5, 3, 3));
+            informeLeche = new JPanel(new GridLayout(0, 2, 3, 3));
 
             // imagenes
             ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
+            ImageIcon informe = new ImageIcon("./imgs/granjaInforme.jpg");
 
             // Variables
-            int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0,
-                    totalVendido = 0, cantDocenaHuevo = 0, cantLitrosLeche = 0;
+            int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantDocenaHuevo = 0, cantLitrosLeche = 0, numRegistro;
             double peso = 0.0, totalVentaHuevos = 0, totalVentaLeche = 0, totalVenta = 0, precioVentaLeche = 0,
                     precioVentaHuevo = 0;
             String raza;
             String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
             String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
-            String[] opcionesIngreso = { "Ingresar", "Salir" };
+            String[] opcionesInforme = { "Historial Animales", "Historial Prod. Huevos", "Historial Prod. Leche",
+                    "Historial Facturas", "Salir" };
             String[] opcionesInicio = { "Acceder a Inventario", "Ventas", "Informes", "Salir" };
             String[] opcionesInventario = { "Registrar Gallina", "Registrar Vaca", "Registrar Prod.Huevos",
                     "Registrar Prod.Leche", "Regresar" };
-            boolean bien, cancelado, iniciado;
+            boolean bien, cancelado;
 
             // Inicio
-            iniciado = false; // con esto sabemos el estado del programa (iniciado o no)
             do { // todo el programa
                  // PANTALLA DE INICIO
                 opcion = JOptionPane.showOptionDialog(null,
@@ -98,8 +103,11 @@ public class Main {
                             inventarioGallina1
                                     .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[0]),
                                             SwingConstants.CENTER));
-                            inventarioGallina1.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[0]), SwingConstants.CENTER));
-                            inventarioGallina1.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[0]) + " huevos", SwingConstants.CENTER));
+                            inventarioGallina1.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[0]),
+                                    SwingConstants.CENTER));
+                            inventarioGallina1
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[0]) + " huevos",
+                                            SwingConstants.CENTER));
 
                             // Fila 2 de las Gallinas
                             inventarioGallina2.add(new JLabel("Lohman"));
@@ -109,17 +117,25 @@ public class Main {
                             inventarioGallina2
                                     .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[1]),
                                             SwingConstants.CENTER));
-                            inventarioGallina2.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[1]), SwingConstants.CENTER));
-                            inventarioGallina2.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[1]) + " huevos", SwingConstants.CENTER));
+                            inventarioGallina2.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[1]),
+                                    SwingConstants.CENTER));
+                            inventarioGallina2
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[1]) + " huevos",
+                                            SwingConstants.CENTER));
 
                             // Fila 3 de las Gallinas
                             inventarioGallina3.add(new JLabel("Castellana Negra", SwingConstants.LEFT));
                             inventarioGallina3.add(new JLabel("CTLANGR", SwingConstants.CENTER));
-                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[2]), SwingConstants.CENTER));
+                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[2]),
+                                    SwingConstants.CENTER));
                             inventarioGallina3
-                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[2]), SwingConstants.CENTER));
-                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[2]), SwingConstants.CENTER));
-                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[2]) + " huevos", SwingConstants.CENTER));
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[2]),
+                                            SwingConstants.CENTER));
+                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[2]),
+                                    SwingConstants.CENTER));
+                            inventarioGallina3
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[2]) + " huevos",
+                                            SwingConstants.CENTER));
 
                             // Labels de las Vacas
                             inventarioVacaLabels.add(new JLabel("Raza"));
@@ -134,8 +150,10 @@ public class Main {
                                     new JLabel(Integer.toString(inventario.getCantidadVacas()), SwingConstants.CENTER));
                             inventarioVaca.add(new JLabel(Integer.toString(inventario.getCantidadLeche()),
                                     SwingConstants.CENTER));
-                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getLecheVendida()), SwingConstants.CENTER));
-                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getLecheDisponible()) + " litros", SwingConstants.CENTER));
+                            inventarioVaca.add(
+                                    new JLabel(Integer.toString(inventario.getLecheVendida()), SwingConstants.CENTER));
+                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getLecheDisponible()) + " litros",
+                                    SwingConstants.CENTER));
 
                             inventarioPanel.add(new JLabel(""));
                             inventarioPanel.add(new JLabel("Gallinas"));
@@ -273,7 +291,11 @@ public class Main {
                                                 // # trabajo con el objeto
                                                 gallina.asignar(edad, peso, razaG.getSelectedItem().toString(),
                                                         identificador.getText());
-                                                inventario.registrarGallina(gallina);
+                                                // registramos la gallina en la lista enlazada
+                                                Gallina gallinaR = new Gallina();
+                                                gallinaR.asignar(edad, peso, razaG.getSelectedItem().toString(),
+                                                        identificador.getText());
+                                                inventario.registrarGallina(gallinaR);
 
                                                 System.out.println("Raza: " + identificador.getText());
                                                 System.out.println("Edad: " + edad);
@@ -387,7 +409,10 @@ public class Main {
 
                                                     // # trabajo con el objeto
                                                     vaca.asignar(edad, peso, razaV.getText());
-                                                    inventario.registrarVaca(vaca);
+                                                    // registrar en la lista enlazada
+                                                    Vaca vacaR = new Vaca();
+                                                    vacaR.asignar(edad, peso, razaV.getText());
+                                                    inventario.registrarVaca(vacaR);
 
                                                     System.out.println("Raza: " + razaV.getText());
                                                     System.out.println("Edad: " + edad);
@@ -492,9 +517,15 @@ public class Main {
                                                         JOptionPane.INFORMATION_MESSAGE);
 
                                                 // # trabajo con el objeto
+                                                gallina.setRaza(razaGP.getSelectedItem().toString());
                                                 gallina.setProduccionHuevos(huevosProd);
-                                                inventario.registrarHuevos(gallina, identificadorP.getText(),
-                                                        gallina.getProduccionHuevos());
+
+                                                // registrar en la lista enlazada
+                                                Gallina gallinaRP = new Gallina();
+                                                gallinaRP.setRaza(razaGP.getSelectedItem().toString());
+                                                gallinaRP.setProduccionHuevos(huevosProd);
+                                                inventario.registrarHuevos(gallinaRP, identificadorP.getText(),
+                                                        gallinaRP.getProduccionHuevos());
 
                                                 System.out.println("Raza: " + identificadorP.getText());
                                                 System.out.println("# Huevos: " + huevosProd);
@@ -589,6 +620,11 @@ public class Main {
                                                 // # trabajo con el objeto
                                                 vaca.setLecheProducida(lechesProd);
                                                 inventario.registrarLeche(vaca, vaca.getLecheProducida());
+
+                                                // guardar registro en la lista enlazada
+                                                Vaca vacaR = new Vaca();
+                                                vacaR.setLecheProducida(lechesProd);
+                                                inventario.registrarLeche(vacaR, vacaR.getLecheProducida());
 
                                                 System.out.println("Raza: " + razaV.getText());
                                                 System.out.println("# Leches Prod: " + lechesProd);
@@ -739,10 +775,19 @@ public class Main {
                                 precioVentaLeche = Double.parseDouble(ventasPanel.precioVentaLeche.getText());
                                 cantDocenaHuevo = Integer.parseInt(ventasPanel.cantDocenasHuevo.getText());
                                 cantLitrosLeche = Integer.parseInt(ventasPanel.cantLitrosLeche.getText());
+                                totalVentaHuevos = cantDocenaHuevo * precioVentaHuevo;
+                                totalVentaLeche = cantLitrosLeche * precioVentaLeche;
+                                totalVenta = totalVentaHuevos + totalVentaLeche;
                                 factura.asignar(ventasPanel.nombreCliente.getText(), new Date().toString(), totalVenta,
                                         precioVentaHuevo, precioVentaLeche, cantDocenaHuevo, cantLitrosLeche);
 
                                 // guardamos la factura en el registro
+                                // registrar factura en la lista enlazada
+                                Factura facturaR = new Factura();
+                                facturaR.asignar(ventasPanel.nombreCliente.getText(), new Date().toString(), totalVenta,
+                                        precioVentaHuevo, precioVentaLeche, cantDocenaHuevo, cantLitrosLeche);
+                                inventario.registrarFactura(facturaR);
+
                                 facturaPanel.removeAll();
                                 facturaCabeza.removeAll();
                                 facturaLabels.removeAll();
@@ -752,7 +797,7 @@ public class Main {
                                 facturaPie.removeAll();
 
                                 facturaCabeza.add(new JLabel(
-                                        "=========================== FACTURA DE VENTA =========================== "));
+                                        "======================= FACTURA DE VENTA ======================= "));
                                 facturaCabeza.add(new JLabel("Fecha: " + factura.getFechaFactura()));
                                 facturaCabeza.add(new JLabel("Número de Factura: 00" + factura.getNumeroFactura()));
                                 facturaCabeza.add(new JLabel("================================================"));
@@ -763,10 +808,6 @@ public class Main {
                                 facturaLabels.add(new JLabel("Cantidad"/* , SwingConstants.CENTER */));
                                 facturaLabels.add(new JLabel("Precio Unitario"/* , SwingConstants.CENTER */));
                                 facturaLabels.add(new JLabel("Valor Total"/* , SwingConstants.CENTER */));
-
-                                totalVentaHuevos = cantDocenaHuevo * precioVentaHuevo;
-                                totalVentaLeche = cantLitrosLeche * precioVentaLeche;
-                                totalVenta = totalVentaHuevos + totalVentaLeche;
 
                                 facturaCamposHuevo.add(new JLabel("Huevos (docenas)"));
                                 facturaCamposHuevo.add(new JLabel(String.format("%d", cantDocenaHuevo)));
@@ -801,8 +842,177 @@ public class Main {
                         } while (!bien);
 
                         break;
-                    case 2:
-                        // Informes informes = new Informes();
+                    case 2: // Informes
+                        do {
+                            bien = true;
+                            panel.removeAll();
+
+                            panel.add(new JLabel("Seleccione el informe que desea generar:"), BorderLayout.SOUTH);
+                            panel.add(new JSeparator());
+                            panel.add(new JLabel(informe), BorderLayout.CENTER);
+
+                            opcion = JOptionPane.showOptionDialog(null,
+                                    panel,
+                                    "Informes de la granja",
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null,
+                                    opcionesInforme, null);
+
+                            switch (opcion) {
+                                case 0: // Informe de Registros de Animales en la granja
+                                    panel.removeAll();
+                                    informeAnimales.removeAll();
+
+                                    informeAnimales.add(new JLabel("# Registro"));
+                                    informeAnimales.add(new JLabel("Tipo", SwingConstants.CENTER));
+                                    informeAnimales.add(new JLabel("Raza", SwingConstants.CENTER));
+                                    informeAnimales.add(new JLabel("Edad", SwingConstants.CENTER));
+                                    informeAnimales.add(new JLabel("Peso", SwingConstants.CENTER));
+                                    // informeAnimales.add(new JSeparator());
+
+                                    // llamamos a la lista enlazada del Registro de Animales e imprimimos sus
+                                    // valores con un for-loop
+                                    numRegistro = 0;
+                                    for (Animal animal : inventario.registro.getAnimalesRegistrados()) {
+                                        informeAnimales.add(new JLabel("R#" + ++numRegistro));
+                                        // para saber el tipo de animal
+                                        if (animal.getNombreRaza().equals("Brahman")) {
+                                            informeAnimales.add(new JLabel("Vaca", SwingConstants.CENTER));
+                                        } else {
+                                            informeAnimales.add(new JLabel("Gallina", SwingConstants.CENTER));
+                                        }
+                                        informeAnimales.add(new JLabel(animal.getNombreRaza(), SwingConstants.CENTER));
+                                        informeAnimales.add(new JLabel("" + animal.getEdad(), SwingConstants.CENTER));
+                                        informeAnimales.add(new JLabel("" + animal.getPeso(), SwingConstants.CENTER));
+                                    }
+
+                                    panel.add(new JLabel("Historial de Registro de Animales"), BorderLayout.NORTH);
+                                    panel.add(informeAnimales, BorderLayout.SOUTH);
+
+                                    JOptionPane.showMessageDialog(null, panel, "Historial de Registro de Animales",
+                                            JOptionPane.INFORMATION_MESSAGE, null);
+                                    break;
+
+                                case 1: // historial de registro de Producción de Huevos
+                                    panel.removeAll();
+                                    informeHuevos1.removeAll();
+                                    informeHuevos2.removeAll();
+                                    informeHuevos3.removeAll();
+
+                                    informeHuevos1.setBorder(BorderFactory.createTitledBorder("Isa Brown"));
+                                    informeHuevos1.add(new JLabel("# Registro"));
+                                    informeHuevos1.add(new JLabel("Raza", SwingConstants.CENTER));
+                                    informeHuevos1.add(new JLabel("Producción", SwingConstants.CENTER));
+                                    // informeHuevos1.add(new JSeparator());
+
+                                    // llamamos a la lista enlazada del Registro de Produccion de los Huevos de Isa
+                                    // Brown
+                                    // con un for-loop
+                                    numRegistro = 0;
+                                    for (Gallina gallinas : inventario.registro.getProdGallinas1()) {
+                                        if (gallinas.getNombreRaza() == "Isa Brown") {
+                                            informeHuevos1.add(new JLabel("R#" + ++numRegistro));
+                                            informeHuevos1
+                                                    .add(new JLabel(gallinas.getNombreRaza(), SwingConstants.CENTER));
+                                            informeHuevos1.add(new JLabel("" + gallinas.getProduccionHuevos(),
+                                                    SwingConstants.CENTER));
+                                        }
+                                    }
+
+                                    numRegistro = 0;
+                                    informeHuevos2.setBorder(BorderFactory.createTitledBorder("Lohman"));
+                                    informeHuevos2.add(new JLabel("# Registro"));
+                                    informeHuevos2.add(new JLabel("Raza", SwingConstants.CENTER));
+                                    informeHuevos2.add(new JLabel("Producción", SwingConstants.CENTER));
+                                    for (Gallina gallinas : inventario.registro.getProdGallinas2()) {
+                                        if (gallinas.getNombreRaza() == "Lohman") {
+                                            informeHuevos2.add(new JLabel("R#" + ++numRegistro));
+                                            informeHuevos2
+                                                    .add(new JLabel(gallinas.getNombreRaza(), SwingConstants.CENTER));
+                                            informeHuevos2.add(new JLabel("" + gallinas.getProduccionHuevos(),
+                                                    SwingConstants.CENTER));
+                                        }
+                                    }
+
+                                    numRegistro = 0;
+                                    informeHuevos3.setBorder(BorderFactory.createTitledBorder("Castellana Negra"));
+                                    informeHuevos3.add(new JLabel("# Registro"));
+                                    informeHuevos3.add(new JLabel("Raza", SwingConstants.CENTER));
+                                    informeHuevos3.add(new JLabel("Producción", SwingConstants.CENTER));
+                                    for (Gallina gallinas : inventario.registro.getProdGallinas3()) {
+                                        if (gallinas.getNombreRaza() == "Castellana Negra") {
+                                            informeHuevos3.add(new JLabel("R#" + ++numRegistro));
+                                            informeHuevos3
+                                                    .add(new JLabel(gallinas.getNombreRaza(), SwingConstants.CENTER));
+                                            informeHuevos3.add(new JLabel("" + gallinas.getProduccionHuevos(),
+                                                    SwingConstants.CENTER));
+                                        }
+                                    }
+
+                                    informeHuevos.add(informeHuevos1, BorderLayout.NORTH);
+                                    informeHuevos.add(informeHuevos2, BorderLayout.CENTER);
+                                    informeHuevos.add(informeHuevos3, BorderLayout.SOUTH);
+
+                                    panel.add(new JLabel("Historial de Registro de Producción de los Huevos por Raza"),
+                                            BorderLayout.NORTH);
+                                    panel.add(new JSeparator());
+                                    panel.add(informeHuevos, BorderLayout.CENTER);
+
+                                    JOptionPane.showMessageDialog(null, panel, "Historial de Registro de Animales",
+                                            JOptionPane.INFORMATION_MESSAGE, null);
+                                    break;
+
+                                case 2:
+                                    panel.removeAll();
+                                    informeLeche.removeAll();
+
+                                    informeLeche.setBorder(
+                                            BorderFactory.createTitledBorder("Historial Registro de Leches"));
+                                    informeLeche.add(new JLabel("# Registro"));
+                                    informeLeche.add(new JLabel("Producción de Leches (litro)"));
+                                    informeLeche.add(new JSeparator());
+                                    informeLeche.add(new JSeparator());
+                                    numRegistro = 0;
+                                    for (Vaca vacas : inventario.registro.getProdLeche()) {
+                                        informeLeche.add(new JLabel("R#" + ++numRegistro));
+                                        informeLeche.add(new JLabel("" + vacas.getLecheProducida()));
+                                    }
+                                    panel.add(informeLeche, BorderLayout.CENTER);
+                                    JOptionPane.showMessageDialog(null, panel, "Historial de Registro de Leches Producidas",
+                                            JOptionPane.INFORMATION_MESSAGE, null);
+                                    break;
+
+                                case 3:
+                                    panel.removeAll();
+                                    informeFactura.removeAll();
+                                    informeFacturaLabels.removeAll();
+
+                                    informeFacturaLabels.add(new JLabel("N. Factura"));
+                                    informeFacturaLabels.add(new JLabel("Cliente", SwingConstants.CENTER));
+                                    informeFacturaLabels.add(new JLabel("Leches", SwingConstants.CENTER));
+                                    informeFacturaLabels.add(new JLabel("Huevo (docenas)", SwingConstants.CENTER));
+                                    informeFacturaLabels.add(new JLabel("Total B./", SwingConstants.CENTER));
+
+                                    for (Factura facturas : inventario.registro.getFacturasRegistradas()) {
+                                        informeFactura.add(new JLabel("00" + facturas.getNumeroFactura()));
+                                        informeFactura
+                                                .add(new JLabel(facturas.getNombreCliente(), SwingConstants.CENTER));
+                                        informeFactura.add(new JLabel("" + facturas.getCantidadLitrosLeche(),
+                                                SwingConstants.CENTER));
+                                        informeFactura.add(new JLabel("" + facturas.getCantidadDocenasHuevo(),
+                                                SwingConstants.CENTER));
+                                        informeFactura.add(
+                                                new JLabel("" + facturas.getTotalFactura(), SwingConstants.CENTER));
+                                    }
+
+                                    panel.add(informeFacturaLabels, BorderLayout.NORTH);
+                                    panel.add(informeFactura, BorderLayout.CENTER);
+
+                                    JOptionPane.showMessageDialog(null, panel, "Historial de Registro de Facturas",
+                                            JOptionPane.INFORMATION_MESSAGE, null);
+                                    break;
+                            }
+                        } while (!bien);
 
                         break;
                     case 3:
