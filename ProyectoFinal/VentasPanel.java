@@ -4,18 +4,26 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class VentasPanel extends JPanel {
-    public JPanel ventaHuevoPanel, ventaLechePanel, totalPanel;
+    public JPanel ventaHuevoPanel, ventaLechePanel, totalPanel, nombrePanel;
     public JTextField precioVentaHuevo, cantDocenasHuevo, precioVentaLeche, cantLitrosLeche, nombreCliente;
     public JLabel subTotalHuevoTxt, subTotalLecheTxt, totalTxt;
+
+    String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
+    JComboBox<String> razaG = new JComboBox<>(razasGallina);
     public VentasPanel() {
-        ventaHuevoPanel = new JPanel(new GridLayout(4, 2, 2, 2));
+        ventaHuevoPanel = new JPanel(new GridLayout(5, 2, 2, 2));
         ventaLechePanel = new JPanel(new GridLayout(4, 2, 2, 2));
         totalPanel = new JPanel(new BorderLayout(5, 5));
+        nombrePanel = new JPanel(new GridLayout(1, 4, 4, 4));
         
         setBorder(BorderFactory.createTitledBorder("Sistema de Ventas"));
         setLayout(new BorderLayout(5, 5));
 
+        // panel para el nombre del cliente
         nombreCliente = new JTextField();
+        // nombrePanel.setBorder(BorderFactory.createTitledBorder("Nombre del Cliente"));
+        nombrePanel.add(new JLabel("Nombre del Cliente: "), BorderLayout.LINE_START);
+        nombrePanel.add(nombreCliente, BorderLayout.CENTER);
 
         // venta de huevos
         ventaHuevoPanel.setBorder(BorderFactory.createTitledBorder("Venta de Huevos (docena)"));
@@ -23,13 +31,15 @@ public class VentasPanel extends JPanel {
         cantDocenasHuevo = new JTextField();
         subTotalHuevoTxt = new JLabel("0");
         subTotalHuevoTxt.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        ventaHuevoPanel.add(new JLabel("Raza de Gallina"));
+        ventaHuevoPanel.add(razaG);
         ventaHuevoPanel.add(new JLabel("Precio Venta"));
         ventaHuevoPanel.add(precioVentaHuevo);
         ventaHuevoPanel.add(new JLabel("Cantidad de Docenas"));
         ventaHuevoPanel.add(cantDocenasHuevo);
         ventaHuevoPanel.add(new JLabel("SubTotal $"));
         ventaHuevoPanel.add(subTotalHuevoTxt);
-
+        
         // venta de leche
         ventaLechePanel.setBorder(BorderFactory.createTitledBorder("Venta de Leche (litros)"));
         precioVentaLeche = new JTextField();
@@ -51,8 +61,7 @@ public class VentasPanel extends JPanel {
         totalPanel.add(totalTxt);
 
         // agregar los componentes al panel principal
-        add(new JLabel("Nombre del Cliente: "));
-        add(nombreCliente);
+        add(nombrePanel, BorderLayout.NORTH);
         add(ventaHuevoPanel, BorderLayout.WEST);
         add(new JSeparator(SwingConstants.VERTICAL), BorderLayout.CENTER);
         add(ventaLechePanel, BorderLayout.EAST);

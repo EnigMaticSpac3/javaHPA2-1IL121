@@ -3,19 +3,21 @@ public class Factura {
     private String fechaFactura;
     private int numeroFactura;
     private double totalFactura;
-    private String[] productos;
-    private double[] precios;
-    private int[] cantidades;
+    private double precioHuevo;
+    private double precioLeche;
+    private int cantidadDocenasHuevo;
+    private int cantidadLitrosLeche;
 
-    public void asignar(String nombreCliente, String fechaFactura, int numeroFactura, double totalFactura,
-            String[] productos, double[] precios, int[] cantidades) {
+    public void asignar(String nombreCliente, String fechaFactura, double totalFactura,
+            double precioHuevo, double precioLeche, int cantidadDocenasHuevo, int cantidadLitrosLeche) {
         this.nombreCliente = nombreCliente;
         this.fechaFactura = fechaFactura;
-        this.numeroFactura = numeroFactura;
+        this.numeroFactura += 001;
         this.totalFactura = totalFactura;
-        this.productos = productos;
-        this.precios = precios;
-        this.cantidades = cantidades;
+        this.precioHuevo = precioHuevo;
+        this.precioLeche = precioLeche;
+        this.cantidadDocenasHuevo = cantidadDocenasHuevo;
+        this.cantidadLitrosLeche = cantidadLitrosLeche;
     }
 
     public String getNombreCliente() {
@@ -34,15 +36,20 @@ public class Factura {
         return totalFactura;
     }
 
-    public String[] getProductos() {
-        return productos;
+    public double getPrecioHuevo() {
+        return precioHuevo;
     }
 
-    public double[] getPrecios() {
-        return precios;
+    public double getPrecioLeche() {
+        return precioLeche;
     }
 
-    public int[] getCantidades() {
-        return cantidades;
+    public int getCantidadDocenasHuevo() {
+        return cantidadDocenasHuevo;
     }
+
+    public int getCantidadLitrosLeche() {
+        return cantidadLitrosLeche;
+    }
+
 }

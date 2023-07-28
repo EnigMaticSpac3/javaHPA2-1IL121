@@ -1,6 +1,5 @@
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.util.Date;
@@ -18,35 +17,42 @@ public class Main {
             Factura factura = new Factura();
 
             // Objetos de JAVA
-            JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels;
-            JPanel labels, controls, mensaje, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2,
-                    inventarioGallina3, inventarioVaca, ventaHuevoPanel, ventaLechePanel, totalPanel;
+            JPanel panel, inicioPanel, inventarioPanel, inventarioGallinaLabels, inventarioVacaLabels, facturaPanel;
+            JPanel labels, controls, inicioLabels, inicioControls, inventarioGallina1, inventarioGallina2,
+                    inventarioGallina3, inventarioVaca, facturaLabels, facturaCamposHuevo, facturaCamposLeche,
+                    facturaCabeza, facturaMedio, facturaPie;
             JTextField razaV, edadTxt, pesoTxt, huevosProdTxt, lechesProdTxt, cantGallinasTxt, cantVacasTxt;
 
             panel = new JPanel(new BorderLayout(5, 5));
             inicioPanel = new JPanel(new BorderLayout(5, 5));
             labels = new JPanel(new GridLayout(0, 1, 2, 2));
             controls = new JPanel(new GridLayout(0, 1, 2, 2));
-            mensaje = new JPanel(new GridLayout(0, 1, 0, 5));
             inicioLabels = new JPanel(new GridLayout(4, 1, 10, 10));
             inicioControls = new JPanel(new GridLayout(4, 1, 10, 10));
-            inventarioPanel = new JPanel(new GridLayout(12, 4, 2, 2));
-            inventarioGallinaLabels = new JPanel(new GridLayout(1, 4, 2, 2));
-            inventarioGallina1 = new JPanel(new GridLayout(1, 4, 2, 2));
-            inventarioGallina2 = new JPanel(new GridLayout(1, 4, 2, 2));
-            inventarioGallina3 = new JPanel(new GridLayout(1, 4, 2, 2));
-            inventarioVacaLabels = new JPanel(new GridLayout(1, 3, 2, 2));
+            inventarioPanel = new JPanel(new GridLayout(12, 6, 2, 2));
+            inventarioGallinaLabels = new JPanel(new GridLayout(1, 6, 2, 2));
+            inventarioGallina1 = new JPanel(new GridLayout(1, 6, 2, 2));
+            inventarioGallina2 = new JPanel(new GridLayout(1, 6, 2, 2));
+            inventarioGallina3 = new JPanel(new GridLayout(1, 6, 2, 2));
+            inventarioVacaLabels = new JPanel(new GridLayout(1, 5, 2, 2));
             inventarioVaca = new JPanel(new GridLayout(1, 3, 2, 2));
+            facturaPanel = new JPanel(new BorderLayout(5, 5));
+            facturaLabels = new JPanel(new GridLayout(1, 4, 2, 2));
+            facturaCamposHuevo = new JPanel(new GridLayout(1, 4, 2, 2));
+            facturaCamposLeche = new JPanel(new GridLayout(1, 4, 2, 2));
+            facturaCabeza = new JPanel(new GridLayout(0, 1, 2, 2));
+            facturaMedio = new JPanel(new GridLayout(4, 4, 3, 3));
+            facturaPie = new JPanel(new GridLayout(3, 1, 2, 2));
 
             // imagenes
             ImageIcon inicio = new ImageIcon("./imgs/inicio.png");
 
             // Variables
-            int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0, totalVendido = 0,
-                    cantDocenaHuevo = 0, cantLitrosLeche = 0;
+            int opcion, edad = 0, huevosProd = 0, lechesProd = 0, cantGallinas = 0, cantVacas = 0,
+                    totalVendido = 0, cantDocenaHuevo = 0, cantLitrosLeche = 0;
             double peso = 0.0, totalVentaHuevos = 0, totalVentaLeche = 0, totalVenta = 0, precioVentaLeche = 0,
                     precioVentaHuevo = 0;
-            String panelInventario;
+            String raza;
             String[] razasGallina = { "Isa Brown", "Lohman", "Castellana Negra" };
             String[] identificadores = { "ISBWN", "LHMN", "CTLANGR" };
             String[] opcionesIngreso = { "Ingresar", "Salir" };
@@ -60,14 +66,7 @@ public class Main {
             do { // todo el programa
                  // PANTALLA DE INICIO
                 opcion = JOptionPane.showOptionDialog(null,
-                        "________________________________"
-                                + "\nCapacidad de la Granja\n"
-                                + "Gallinas: " + cantGallinas + "\n"
-                                + "Vacas: " + cantVacas + "\n"
-                                + "_______________________________"
-                                + "\nEspacio Disponible\n"
-                                + "Gallinas: " + inventario.gallinas.length + "\n"
-                                + "Vacas: " + inventario.vacas.length + "\n",
+                        "",
                         "Granja", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         inicio,
                         opcionesInicio, null);
@@ -88,6 +87,8 @@ public class Main {
                             inventarioGallinaLabels.add(new JLabel("Identificador", SwingConstants.CENTER));
                             inventarioGallinaLabels.add(new JLabel("Cantidad", SwingConstants.CENTER));
                             inventarioGallinaLabels.add(new JLabel("Producción de Huevos", SwingConstants.CENTER));
+                            inventarioGallinaLabels.add(new JLabel("Huevos Vendidos", SwingConstants.CENTER));
+                            inventarioGallinaLabels.add(new JLabel("Huevos Disponibles", SwingConstants.CENTER));
 
                             // Fila 1 de las Gallinas
                             inventarioGallina1.add(new JLabel("Isa Brown"));
@@ -95,8 +96,10 @@ public class Main {
                             inventarioGallina1.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[0]),
                                     SwingConstants.CENTER));
                             inventarioGallina1
-                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[0]) + " huevos",
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[0]),
                                             SwingConstants.CENTER));
+                            inventarioGallina1.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[0]), SwingConstants.CENTER));
+                            inventarioGallina1.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[0]) + " huevos", SwingConstants.CENTER));
 
                             // Fila 2 de las Gallinas
                             inventarioGallina2.add(new JLabel("Lohman"));
@@ -104,29 +107,35 @@ public class Main {
                             inventarioGallina2.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[1]),
                                     SwingConstants.CENTER));
                             inventarioGallina2
-                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[1]) + " huevos",
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[1]),
                                             SwingConstants.CENTER));
+                            inventarioGallina2.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[1]), SwingConstants.CENTER));
+                            inventarioGallina2.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[1]) + " huevos", SwingConstants.CENTER));
 
                             // Fila 3 de las Gallinas
-                            inventarioGallina3.add(new JLabel("Castellana Negra"));
+                            inventarioGallina3.add(new JLabel("Castellana Negra", SwingConstants.LEFT));
                             inventarioGallina3.add(new JLabel("CTLANGR", SwingConstants.CENTER));
-                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[2]),
-                                    SwingConstants.CENTER));
+                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getCantidadGallinas()[2]), SwingConstants.CENTER));
                             inventarioGallina3
-                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[2]) + " huevos",
-                                            SwingConstants.CENTER));
+                                    .add(new JLabel(Integer.toString(inventario.getHuevosProducidos()[2]), SwingConstants.CENTER));
+                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getHuevosVendidos()[2]), SwingConstants.CENTER));
+                            inventarioGallina3.add(new JLabel(Integer.toString(inventario.getHuevosDisponibles()[2]) + " huevos", SwingConstants.CENTER));
 
                             // Labels de las Vacas
                             inventarioVacaLabels.add(new JLabel("Raza"));
                             inventarioVacaLabels.add(new JLabel("Cantidad", SwingConstants.CENTER));
                             inventarioVacaLabels.add(new JLabel("Producción de Leche (litros)", SwingConstants.CENTER));
+                            inventarioVacaLabels.add(new JLabel("Leche Vendida", SwingConstants.CENTER));
+                            inventarioVacaLabels.add(new JLabel("Leche Disponible", SwingConstants.CENTER));
 
                             // Fila de las Vacas
                             inventarioVaca.add(new JLabel("Brahman"));
                             inventarioVaca.add(
                                     new JLabel(Integer.toString(inventario.getCantidadVacas()), SwingConstants.CENTER));
-                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getCantidadLeche()) + " litros",
+                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getCantidadLeche()),
                                     SwingConstants.CENTER));
+                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getLecheVendida()), SwingConstants.CENTER));
+                            inventarioVaca.add(new JLabel(Integer.toString(inventario.getLecheDisponible()) + " litros", SwingConstants.CENTER));
 
                             inventarioPanel.add(new JLabel(""));
                             inventarioPanel.add(new JLabel("Gallinas"));
@@ -599,6 +608,7 @@ public class Main {
                         break;
                     case 1:
                         // reseteamos los TextField del panel
+                        ventasPanel.nombreCliente.setText("");
                         ventasPanel.cantLitrosLeche.setText("");
                         ventasPanel.cantDocenasHuevo.setText("");
                         ventasPanel.precioVentaLeche.setText("");
@@ -657,6 +667,16 @@ public class Main {
                                                 JOptionPane.ERROR_MESSAGE);
                                         bien = false;
                                     }
+
+                                    // verificar que la cantidad solcitada no sobrepase la cantidad de huevos
+                                    // disponibles
+                                    if (cantDocenaHuevo > inventario.getHuevosDisponibles()[0]) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "La cantidad de huevos solicitados sobrepasa la cantidad de huevos disponibles",
+                                                "Cantidad de huevos no disponible",
+                                                JOptionPane.ERROR_MESSAGE);
+                                        bien = false;
+                                    }
                                 } catch (NumberFormatException e) {
                                     JOptionPane.showMessageDialog(null,
                                             "El # de huevos vendidos debe ser un numero",
@@ -700,14 +720,86 @@ public class Main {
                                             JOptionPane.ERROR_MESSAGE);
                                     bien = false;
                                 }
+
+                                // llamamos a los metodos de venta
+                                if (cantDocenaHuevo > 0) {
+                                    raza = identificadores[ventasPanel.razaG.getSelectedIndex()];
+                                    inventario.venderHuevos(raza, cantDocenaHuevo);
+                                }
+
+                                if (cantLitrosLeche > 0) {
+                                    inventario.venderLeche(cantLitrosLeche);
+                                }
+
                             }
 
+                            // si todo salió bien, creamos la factura y la guardamos en el registro.
+                            if (bien) {
+                                // totalVenta = Double.parseDouble(ventasPanel.totalTxt.getText());
+                                precioVentaHuevo = Double.parseDouble(ventasPanel.precioVentaHuevo.getText());
+                                precioVentaLeche = Double.parseDouble(ventasPanel.precioVentaLeche.getText());
+                                cantDocenaHuevo = Integer.parseInt(ventasPanel.cantDocenasHuevo.getText());
+                                cantLitrosLeche = Integer.parseInt(ventasPanel.cantLitrosLeche.getText());
+                                factura.asignar(ventasPanel.nombreCliente.getText(), new Date().toString(), totalVenta,
+                                        precioVentaHuevo, precioVentaLeche, cantDocenaHuevo, cantLitrosLeche);
+
+                                // guardamos la factura en el registro
+                                facturaPanel.removeAll();
+                                facturaCabeza.removeAll();
+                                facturaLabels.removeAll();
+                                facturaCamposHuevo.removeAll();
+                                facturaCamposLeche.removeAll();
+                                facturaMedio.removeAll();
+                                facturaPie.removeAll();
+
+                                facturaCabeza.add(new JLabel(
+                                        "=========================== FACTURA DE VENTA =========================== "));
+                                facturaCabeza.add(new JLabel("Fecha: " + factura.getFechaFactura()));
+                                facturaCabeza.add(new JLabel("Número de Factura: 00" + factura.getNumeroFactura()));
+                                facturaCabeza.add(new JLabel("================================================"));
+                                facturaCabeza.add(new JLabel("Cliente: " + factura.getNombreCliente()));
+                                facturaCabeza.add(new JLabel("-----------------------------------------------"));
+
+                                facturaLabels.add(new JLabel("Producto"));
+                                facturaLabels.add(new JLabel("Cantidad"/* , SwingConstants.CENTER */));
+                                facturaLabels.add(new JLabel("Precio Unitario"/* , SwingConstants.CENTER */));
+                                facturaLabels.add(new JLabel("Valor Total"/* , SwingConstants.CENTER */));
+
+                                totalVentaHuevos = cantDocenaHuevo * precioVentaHuevo;
+                                totalVentaLeche = cantLitrosLeche * precioVentaLeche;
+                                totalVenta = totalVentaHuevos + totalVentaLeche;
+
+                                facturaCamposHuevo.add(new JLabel("Huevos (docenas)"));
+                                facturaCamposHuevo.add(new JLabel(String.format("%d", cantDocenaHuevo)));
+                                facturaCamposHuevo.add(new JLabel(String.format("%.2f", precioVentaHuevo)));
+                                facturaCamposHuevo.add(new JLabel(String.format("%.2f", totalVentaHuevos)));
+
+                                facturaCamposLeche.add(new JLabel("Leche (litros)"));
+                                facturaCamposLeche.add(new JLabel(String.format("%d", cantLitrosLeche)));
+                                facturaCamposLeche.add(new JLabel(String.format("%.2f", precioVentaLeche)));
+                                facturaCamposLeche.add(new JLabel(String.format("%.2f", totalVentaLeche)));
+
+                                facturaMedio.add(facturaLabels);
+                                facturaMedio.add(new JSeparator());
+                                if (cantDocenaHuevo > 0)
+                                    facturaMedio.add(facturaCamposHuevo);
+                                if (cantLitrosLeche > 0)
+                                    facturaMedio.add(facturaCamposLeche);
+
+                                facturaPie.add(new JSeparator());
+                                facturaPie.add(new JLabel(String.format("TOTAL VENTA: $%.2f%n", totalVenta)));
+                                facturaPie.add(new JSeparator());
+
+                                facturaPanel.add(facturaCabeza, BorderLayout.NORTH);
+                                facturaPanel.add(facturaMedio, BorderLayout.CENTER);
+                                facturaPanel.add(facturaPie, BorderLayout.SOUTH);
+
+                                // Mostrar la factura en un JOptionPane con un JPanel personalizado
+                                JOptionPane.showMessageDialog(null, facturaPanel,
+                                        "Factura de Venta", JOptionPane.PLAIN_MESSAGE);
+
+                            }
                         } while (!bien);
-
-                        // si todo salió bien, creamos la factura y la guardamos en el registro.
-                        if (bien) {
-
-                        }
 
                         break;
                     case 2:
